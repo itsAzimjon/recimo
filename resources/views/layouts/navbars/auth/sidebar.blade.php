@@ -1,4 +1,3 @@
-
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -181,7 +180,7 @@
             <span class="nav-link-text ms-1">Profile</span>
         </a>
       </li>
-      <li class="nav-link mt-3">
+      {{-- <li class="nav-link mt-3">
         <a href="" class="btn btn-primary btn-md active px-5 text-white" role="button" aria-pressed="true">
           <script>
             document.write(new Date().getHours())
@@ -189,7 +188,7 @@
             document.write(new Date().getMinutes())
           </script>   
         </a>
-      </li>
+      </li> --}}
     </ul>
   </div>
 </aside>

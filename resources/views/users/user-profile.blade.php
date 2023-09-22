@@ -30,9 +30,8 @@
                 <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"
-                                    role="tab" aria-controls="overview" aria-selected="true">
+                            <li class="nav-item active">
+                                <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#menu1">
                                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none"
@@ -53,188 +52,156 @@
                                     <span class="ms-1">{{ __('Overview') }}</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-controls="teams" aria-selected="false">
-                                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <title>document</title>
-                                        <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g id="Rounded-Icons" transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">
-                                                    <g id="document" transform="translate(154.000000, 300.000000)">
-                                                        <path class="color-background" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z" id="Path" opacity="0.603585379"></path>
-                                                        <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z" id="Shape"></path>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                    <span class="ms-1">{{ __('Teams') }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-controls="dashboard" aria-selected="false">
-                                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <title>settings</title>
-                                        <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g id="Rounded-Icons" transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">
-                                                    <g id="settings" transform="translate(304.000000, 151.000000)">
-                                                        <polygon class="color-background" id="Path" opacity="0.596981957" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
-                                                        </polygon>
-                                                        <path class="color-background" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z" id="Path" opacity="0.596981957"></path>
-                                                        <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z" id="Path"></path>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                    <span class="ms-1">{{ __('Projects') }}</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="container-fluid py-4">
-        <div class="card">
-            <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Profile Information') }}</h6>
-            </div>
-            <div class="card-body pt-4 p-3">
-                <form action="/user-profile" method="POST" role="form text-left">
-                    @csrf
-                    @if($errors->any())
-                        <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
-                            <span class="alert-text text-white">
-                            {{$errors->first()}}</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <i class="fa fa-close" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    @endif
-                    @if(session('success'))
-                        <div class="m-3  alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
-                            <span class="alert-text text-white">
-                            {{ session('success') }}</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <i class="fa fa-close" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    @endif
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
-                                <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Name" id="user-name" name="name">
-                                        @error('name')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                        @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
-                                <div class="@error('email')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" value="{{ auth()->user()->email }}" type="email" placeholder="@example.com" id="user-email" name="email">
-                                        @error('email')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                        @enderror
-                                </div>
-                            </div>
-                        </div>
+        <div class="tab-content">
+            <div id="menu1" class="tab-pane fade show active">
+                <div class="card">
+                    <div class="card-header pb-0 px-3">
+                        <h6 class="mb-0">{{ __('Profil Ma\'lumotlari') }}</h6>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
-                                <div class="@error('user.phone')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" type="tel" placeholder="40770888444" id="number" name="phone" value="{{ auth()->user()->phone }}">
-                                        @error('phone')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                        @enderror
+                    <div class="card-body pt-4 p-3">
+                        <form action="/user-profile" method="POST" role="form text-left">
+                            @csrf
+                            @if($errors->any())
+                                <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
+                                    <span class="alert-text text-white">
+                                    {{$errors->first()}}</span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <i class="fa fa-close" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            @endif
+                            @if(session('success'))
+                                <div class="m-3  alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
+                                    <span class="alert-text text-white">
+                                    {{ session('success') }}</span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <i class="fa fa-close" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            @endif
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-name" class="form-control-label">F.I.O</label>
+                                        <div class="@error('user.name')border border-danger rounded-3 @enderror">
+                                            <input class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Name" id="user-name" name="name">
+                                                @error('name')
+                                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-Passport" class="form-control-label">Passport raqam</label>
+                                        <div class="@error('Passport')border border-danger rounded-3 @enderror">
+                                            <input class="form-control" value="{{ auth()->user()->Passport }}" type="text" placeholder="AB 1112233" id="user-Passport" name="Passport">
+                                                @error('Passport')
+                                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
-                                <div class="@error('user.location') border border-danger rounded-3 @enderror">
-                                    <input class="form-control" type="text" placeholder="Location" id="name" name="location" value="{{ auth()->user()->location }}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user.phone" class="form-control-label">Telefon</label>
+                                        <div class="@error('user.phone')border border-danger rounded-3 @enderror">
+                                            <input class="form-control" type="tel" placeholder="+998901234567" id="number" name="phone" value="{{ auth()->user()->phone }}">
+                                                @error('phone')
+                                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-inn" class="form-control-label">Stir</label>
+                                        <div class="@error('inn')border border-danger rounded-3 @enderror">
+                                            <input class="form-control" value="{{ auth()->user()->inn }}" type="text" placeholder="307546789" id="user-inn" name="inn">
+                                                @error('inn')
+                                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
-                                <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Name" id="user-name" name="name">
-                                        @error('name')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                        @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user.location" class="form-control-label">Manzil</label>
+                                        <div class="@error('user.location') border border-danger rounded-3 @enderror">
+                                            <input class="form-control" type="text" placeholder="Location" id="name" name="Manzil" value="{{ auth()->user()->location }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-password" class="form-control-label">Parol</label>
+                                        <div class="@error('password')border border-danger rounded-3 @enderror">
+                                            <input class="form-control"  type="password" placeholder="******" id="user-password" name="password">
+                                                @error('password')
+                                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
-                                <div class="@error('email')border border-danger rounded-3 @enderror">
-                                    <input class="form-control"  type="text" placeholder="sa" id="user-email" name="email">
-                                        @error('email')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                        @enderror
+                    
+                            <div class="row mx-1">
+                                <label for="user-email" class="form-control-label">Plastik</label>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check this  checkbox</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Custom check</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check this  checkbox</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">This custom checkbox</label>
+                                </div>
+                                <div class="form-check col-sm-6 col-md-3 col-lg-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
+                                    <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
+                            </div>
+                        </form>
 
-                    <div class="row mx-1">
-                        <label for="user-email" class="form-control-label">Plastik</label>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check this  checkbox</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Custom check</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check this  checkbox</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">This custom checkbox</label>
-                        </div>
-                        <div class="form-check col-sm-6 col-md-3 col-lg-3">
-                            <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                            <label class="custom-control-label px-2" for="customCheck1">Check this custom checkbox</label>
-                        </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
-                    </div>
-                </form>
-
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 @endsection

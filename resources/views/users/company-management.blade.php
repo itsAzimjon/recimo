@@ -114,7 +114,7 @@
                                         <p class="text-secondary text-xs font-weight-bold">16/06/18</p>
                                     </td>
                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="{{route('show')}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span>
@@ -154,7 +154,7 @@
                                         <p class="text-secondary text-xs font-weight-bold">16/06/18</p>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="{{route('show')}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span>
@@ -195,7 +195,7 @@
                                         <p class="text-secondary text-xs font-weight-bold">16/06/18</p>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="{{route('show')}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span>
@@ -236,7 +236,7 @@
                                         <p class="text-secondary text-xs font-weight-bold">16/06/18</p>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="{{route('show')}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span>
@@ -277,7 +277,7 @@
                                         <p class="text-secondary text-xs font-weight-bold">16/06/18</p>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="{{route('show')}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span>

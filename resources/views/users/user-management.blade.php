@@ -88,9 +88,6 @@
                                         <span class="text-secondary text-xs font-weight-bold">16/06/18</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
                                         <span>
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
@@ -118,9 +115,6 @@
                                         <span class="text-secondary text-xs font-weight-bold">05/05/20</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
                                         <span>
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
@@ -148,9 +142,6 @@
                                         <span class="text-secondary text-xs font-weight-bold">23/06/20</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
                                         <span>
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
@@ -178,9 +169,6 @@
                                         <span class="text-secondary text-xs font-weight-bold">26/10/17</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
                                         <span>
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
@@ -208,9 +196,6 @@
                                         <span class="text-secondary text-xs font-weight-bold">23/01/21</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
                                         <span>
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>

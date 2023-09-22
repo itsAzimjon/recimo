@@ -23,6 +23,17 @@
             </div>
         @endif
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="user-photo" class="form-control-label">Surat</label>
+                    <div class="@error('photo')border border-danger rounded-3 @enderror">
+                        <input class="form-control" value="{{ auth()->user()->photo }}" type="file" id="user-photo" name="photo">
+                            @error('photo')
+                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            @enderror
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="user-name" class="form-control-label">{{ $slot }}</label>
@@ -38,7 +49,7 @@
                 <div class="form-group">
                     <label for="user-Passport" class="form-control-label">Passport raqam</label>
                     <div class="@error('Passport')border border-danger rounded-3 @enderror">
-                        <input class="form-control" value="{{ auth()->user()->Passport }}" type="text" placeholder="@example.com" id="user-Passport" name="Passport">
+                        <input class="form-control" value="{{ auth()->user()->Passport }}" type="text" placeholder="AB 1112233" id="user-Passport" name="Passport">
                             @error('Passport')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
@@ -62,7 +73,7 @@
                 <div class="form-group">
                     <label for="user-inn" class="form-control-label">Stir</label>
                     <div class="@error('inn')border border-danger rounded-3 @enderror">
-                        <input class="form-control" value="{{ auth()->user()->inn }}" type="text" placeholder="@example.com" id="user-inn" name="inn">
+                        <input class="form-control" value="{{ auth()->user()->inn }}" type="text" placeholder="307546789" id="user-inn" name="inn">
                             @error('inn')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
@@ -75,7 +86,7 @@
                 <div class="form-group">
                     <label for="user.location" class="form-control-label">Manzil</label>
                     <div class="@error('user.location') border border-danger rounded-3 @enderror">
-                        <input class="form-control" type="text" placeholder="Location" id="name" name="location" value="{{ auth()->user()->location }}">
+                        <input class="form-control" type="text" placeholder="Location" id="name" name="Manzil" value="{{ auth()->user()->location }}">
                     </div>
                 </div>
             </div>

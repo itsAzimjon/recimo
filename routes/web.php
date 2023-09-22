@@ -57,6 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('users/user-management');
 	})->name('user-management');
 
+	Route::get('show', function () {
+		return view('users/show');
+	})->name('show');
+
 	Route::get('export', function () {
 		return view('export');
 	})->name('export');
