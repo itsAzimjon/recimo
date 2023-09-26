@@ -16,7 +16,7 @@ class SessionsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email'=>'required|email',
+            'phone_number'=>'required',
             'password'=>'required' 
         ]);
 
@@ -27,7 +27,7 @@ class SessionsController extends Controller
         }
         else{
 
-            return back()->withErrors(['email'=>'Email or password invalid.']);
+            return back()->withErrors(['phone_number'=>'Telefon raqam yoki parol noto‘g‘ri']);
         }
     }
     

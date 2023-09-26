@@ -13,16 +13,16 @@
                   <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
                   <p class="mb-0">Create a new acount<br></p>
                   <p class="mb-0">OR Sign in with these credentials:</p>
-                  <p class="mb-0">Email <b>admin@softui.com</b></p>
+                  <p class="mb-0">Email <b>admin@sof.com</b></p>
                   <p class="mb-0">Password <b>secret</b></p>
                 </div>
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
                     @csrf
-                    <label>Email</label>
+                    <label>phone_number</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="admin@softui.com" aria-label="Email" aria-describedby="email-addon">
-                      @error('email')
+                      <input type="number" class="form-control" name="phone_number" id="phone_number" placeholder="Email" value="913112233" aria-label="phone_number" aria-describedby="email-addon">
+                      @error('phone_number')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
                     </div>

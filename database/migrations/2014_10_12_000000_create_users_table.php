@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('llc')->nullable();
             $table->string('phone_number')->unique();
             $table->string('address')->nullable();
-            $table->string('passport')->unique();
-            $table->integer('inn')->unique();
+            $table->string('passport')->unique()->nullable();
+            $table->bigInteger('inn')->unique()->nullable();
             $table->string('password');
             $table->string('prize')->nullable();
             $table->string('active')->default('1');
