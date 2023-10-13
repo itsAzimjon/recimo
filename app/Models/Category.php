@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'name',
+        'price'
+    ];
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }

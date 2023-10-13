@@ -21,7 +21,7 @@
                     @csrf
                     <label>phone_number</label>
                     <div class="mb-3">
-                      <input type="number" class="form-control" name="phone_number" id="phone_number" placeholder="Email" value="913112233" aria-label="phone_number" aria-describedby="email-addon">
+                      <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="Email" value="913112233" aria-label="phone_number" aria-describedby="email-addon">
                       @error('phone_number')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror

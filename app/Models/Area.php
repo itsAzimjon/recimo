@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'address',
+    ];
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }

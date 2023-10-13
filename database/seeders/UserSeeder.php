@@ -19,6 +19,10 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'role_id' => '1',
+            'llc' => 'Ekosfera',
+            'address' => 'Jizzax',
+            'passport' => 'AD 3432423',
+            'inn' => '5435674623',
             'phone_number' => '913112233',
             'password' => Hash::make('112233'),
             'remember_token' => Str::random(60),

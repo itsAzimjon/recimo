@@ -15,8 +15,9 @@ class CreateBasesTable extends Migration
     {
         Schema::create('bases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('type_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('type_id')->constrained()->onDelete('cascade');
+            $table->integer('client_id');
             $table->bigInteger('import')->nullable();
             $table->bigInteger('export')->nullable();
             $table->timestamps();
