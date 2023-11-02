@@ -45,9 +45,11 @@
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Telefon <br> Yaratilgan sana
                     </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Tahrir
-                    </th>
+                    @can('admin')
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            Tahrir
+                        </th>    
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -95,18 +97,22 @@
                             <a class="text-xs font-weight-bold mb-0" href="tel:{{ $user->phone_number}}">{{ $user->phone_number}}</a>
                             <p class="text-secondary text-xs font-weight-bold">{{ ($user->created_at->format('m/d/Y')) }}</p>
                         </td>
-                        <td class="d-flex justify-content-center align-items-center mt-2">
-                            <a  href="{{ route('user.edit', $user->id) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                                <i class="fas fa-user-edit text-secondary"></i>
-                            </a>
-                            <form class="col-1 mx-2 p-0" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="border border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
-                                    <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                </button>
-                            </form>                                                
-                        </td>
+                        @can('admin')
+                            <td class="justify-content-center align-items-center">
+                                <div class="d-flex">
+                                    <a  href="{{ route('user.edit', $user->id) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Tahrirlash">
+                                        <i class="fas fa-user-edit text-secondary"></i>
+                                    </a>
+                                    <form class="col-1 mx-2 p-0" action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="border border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
+                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                        </button>
+                                    </form>                                                
+                                </div>
+                            </td>    
+                        @endcan
                     </tr>
                     @endif
                 @endforeach

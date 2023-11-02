@@ -11,20 +11,18 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{ asset('/assets/img/bruce-mars.jpg')}}" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        <a href="javascript:;" class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
-                            <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Image"></i>
-                        </a>
+                        @if ($user->photo)
+                            <img src="{{ asset('storage/'.$user->photo) }}" alt="User's Photo" class="w-100 border-radius-lg shadow-sm">
+                        @else
+                            <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Default Avatar" class="w-100 border-radius-lg shadow-sm">
+                        @endif 
                     </div>
                 </div>
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ __('Alec Thompson') }}
+                            {{ $user->name }}
                         </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            {{ __(' CEO / Co-Founder') }}
-                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -18,60 +19,60 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => 'auth'], function () {
-
-	Route::get('/user-management', [UserController::class, 'index'])->name('user.management');
+	
+	Route::get('/dashboard/{id}', [DashboardController::class, 'index'])->name('dashboard')->middleware('can:only-auth,id');
+	Route::get('/export/{id}', [ImportExportController::class, 'export'])->name('export')->middleware('can:only-auth,id');
+	Route::get('/import/{id}', [ImportExportController::class, 'import'])->name('import')->middleware('can:only-auth,id');
+	Route::get('/base/{id}', [BaseController::class, 'index'])->name('base.index')->middleware('can:only-auth,id');
 	Route::get('/agent-management', [UserController::class, 'agent'])->name('agent.management');
-	Route::get('/company-management', [UserController::class, 'company'])->name('company.management');
-	// Route::get('/users/agent', [UserController::class, 'agent'])->name('user.agent');
-
+	Route::get('/order', [OrderController::class, 'index'])->name('order');
+	Route::get('/user-profile/{id}/edit', [InfoUserController::class, 'edit'])->name('user-profile.edit')->middleware('can:only-auth,id');
 	Route::get('/users/search', [UserController::class, 'search'])->name('search.results');
-	Route::get('/base/{id}', [BaseController::class, 'index'])->name('base.index');
-
-	Route::get('/import/{id}', [ImportExportController::class, 'import'])->name('import');
-	Route::get('/export/{id}', [ImportExportController::class, 'export'])->name('export');
-	
-	Route::get('/dashboard/{id}', [DashboardController::class, 'index'])->name('dashboard');
-	
+    
 	Route::resources([
 		'user-profile' => InfoUserController::class,
-		'user' => UserController::class,
 		'sale' => ImportExportController::class,
 	]);
 
+	Route::group(['middleware' => 'checkUserRole:1'], function () {
+		Route::get('/user-management', [UserController::class, 'index'])->name('user.management');
+		Route::get('/company-management', [UserController::class, 'company'])->name('company.management');		
+		Route::post('/order/{order}/accept', [OrderController::class, 'accept'])->name('order.accept');
+		Route::post('/order/{order}/reject', [OrderController::class, 'reject'])->name('order.reject');
+		Route::get('/users', [UserController::class, 'index'])->name('user.index');
+
+		Route::resources([
+			'user' => UserController::class,
+		]);
+	});
 	
-	
-	Route::get('/logout', [SessionsController::class, 'destroy']);
-    Route::get('/', [HomeController::class, 'home']);
-
-	
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
-
-
-	Route::get('massage', function () {
-		return view('massage');
-	})->name('massage');
-
-
-	Route::get('edit', function () {
-		return view('users/edit');
-	})->name('edit');
-
-    Route::get('static-sign-in', function () {
-		return view('static-sign-in');
-	})->name('sign-in');
-
-    Route::get('static-sign-up', function () {
-		return view('static-sign-up');
-	})->name('sign-up');
-
-    Route::get('/login', function () {
-		return view('dashboard');
-	})->name('sign-up');
+	Route::group(['middleware' => 'checkUserRole:3'], function () {
+		Route::post('/createNewProduct', [ImportExportController::class, 'createNewProduct'])->name('createNewProduct');
+	});
 });
 
+Route::get('/logout', [SessionsController::class, 'destroy']);
+Route::get('/', [HomeController::class, 'home']);
 
+Route::get('massage', function () {
+	return view('massage');
+})->name('massage');
+
+Route::get('edit', function () {
+	return view('users/edit');         
+})->name('edit');
+
+Route::get('static-sign-in', function () {
+	return view('static-sign-in');
+})->name('sign-in');
+
+Route::get('static-sign-up', function () {
+	return view('static-sign-up');
+})->name('sign-up');
+
+Route::get('/login', function () {
+	return view('dashboard');
+})->name('sign-up');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);

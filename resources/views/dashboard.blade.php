@@ -1,12 +1,86 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
+@php
+    
+        // gets monthly data for chart
+        $monthlyDataIn = []; 
+        $monthlyDataOut = []; 
+
+        for ($i = 1; $i <= 12; $i++) {
+        $firstDay = now()->setDay(1)->setMonth($i)->startOfDay();
+        $lastDay = now()->setDay(1)->setMonth($i)->endOfMonth();
+
+        $sumImport = $user->bases()
+            ->join('types', 'bases.type_id', '=', 'types.id')
+            ->join('categories', 'types.category_id', '=', 'categories.id')
+            ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+            ->sum('import');
+            $monthlyDataIn[] = $sumImport;
+
+
+        $sumExport = $user->bases()
+            ->join('types', 'bases.type_id', '=', 'types.id')
+            ->join('categories', 'types.category_id', '=', 'categories.id')
+            ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+            ->sum('export');
+            $monthlyDataOut[] = $sumExport;
+        }
+        $monthlyIn = json_encode($monthlyDataIn);
+        $monthlyOut = json_encode($monthlyDataOut);
+        //chart ends here 
+
+$categories = $user->bases()
+    ->join('types', 'bases.type_id', '=', 'types.id')
+    ->join('categories', 'types.category_id', '=', 'categories.id')
+    ->select('categories.id as category_id', 'categories.name as category_name')
+    ->distinct()
+    ->get();
+@endphp
 
 @php
+$netvals = []; // Initialize an array to store netval values
+@endphp
+
+@foreach ($categories as $category)
+    @php
+        $typeImport = $user->bases()
+            ->join('types', 'bases.type_id', '=', 'types.id')
+            ->join('categories', 'types.category_id', '=', 'categories.id')
+            ->where('types.category_id', $category->category_id)
+            ->sum('import');
+        
+        $typeExport = $user->bases()
+            ->join('types', 'bases.type_id', '=', 'types.id')
+            ->join('categories', 'types.category_id', '=', 'categories.id')
+            ->where('types.category_id', $category->category_id)
+            ->sum('export');
+
+        $today = now()->toDateString(); 
+        $sumImport = $user->bases()->join('types', 'bases.type_id', '=', 'types.id')->whereDate('bases.created_at', $today)->sum('import');
+        
+        $netval = $typeImport - $typeExport;
+        
+        $netvals[$category->category_id] = $netval; 
+    
+        @endphp
+    
+    @php
+    // Get all unique type names within the current category
+    $typeNames = $user->bases()
+        ->join('types', 'bases.type_id', '=', 'types.id')
+        ->join('categories', 'types.category_id', '=', 'categories.id')
+        ->where('categories.id', $category->category_id)
+        ->select('types.name as type_name')
+        ->distinct()
+        ->pluck('type_name');
+    @endphp
+@endforeach    
+@php
     $count = [
-    'role_2' => 0,
-    'role_3' => 0,
-    'role_5' => 0,
+        'role_2' => 0,
+        'role_3' => 0,
+        'role_5' => 0,
 ];
 
 foreach ($users as $user) {
@@ -21,7 +95,7 @@ foreach ($users as $user) {
 @endphp
 
 <div class="row">
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <div class="@can('admin') col-xl-3 @endcan  col-sm-6 mb-xl-0 mb-4">
         <div class="card">
             <div class="card-body p-3">
                 <div class="row">
@@ -29,21 +103,21 @@ foreach ($users as $user) {
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Bugungi Tushum</p>
                             <h5 class="font-weight-bolder mb-0">
-                                1,553,000
-                                <span class="text-success text-sm font-weight-bolder">so'm</span>
+                                {{ $sumImport }}
+                                <span class="text-success text-sm font-weight-bolder">kg</span>
                             </h5>
                         </div>
                     </div>
                     <div class="col-4 text-end">
                         <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                            <i class="fa fa-chart-line text-lg opacity-10" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <div class="@can('admin') col-xl-3 @endcan  col-sm-6 mb-xl-0 mb-4">
         <div class="card">
             <div class="card-body p-3">
                 <div class="row">
@@ -58,107 +132,59 @@ foreach ($users as $user) {
                     </div>
                     <div class="col-4 text-end">
                         <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                            <i class="fa fa-campground text-lg opacity-10" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <div class="card">
-            <div class="card-body p-3">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Mijozlar soni</p>
-                            <h5 class="font-weight-bolder mb-0">
-                                {{ $count['role_5'] }}
-                                <span class="text-success text-sm font-weight-bolder">ta</span>
-                            </h5>
+    @can('admin')
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Mijozlar soni</p>
+                                <h5 class="font-weight-bolder mb-0">
+                                    {{ $count['role_5'] }}
+                                    <span class="text-success text-sm font-weight-bolder">ta</span>
+                                </h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                            <i class="fa fa-users text-lg opacity-10"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6">
-        <div class="card">
-            <div class="card-body p-3">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Zavodlar soni</p>
-                            <h5 class="font-weight-bolder mb-0">
-                                {{ $count['role_2'] }}
-                                <span class="text-success text-sm font-weight-bolder">ta</span>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                            <i class="fa fa-industry text-lg opacity-10"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-4 d-none">
-    <div class="col-lg-7 mb-lg-0 mb-4">
-        <div class="card">
-            <div class="card-body p-3">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-column h-100">
-                            <p class="mb-1 pt-2 text-bold">Built by developers</p>
-                            <h5 class="font-weight-bolder">Soft UI Dashboard</h5>
-                            <p class="mb-5">From colors, cards, typography to complex elements, you will find the full
-                                documentation.</p>
-                            <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto"
-                                href="javascript:;">
-                                Read More
-                                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
-                        <div class="bg-gradient-primary border-radius-lg h-100">
-                            <img src="../assets/img/shapes/waves-white.svg"
-                                class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
-                            <div class="position-relative d-flex align-items-center justify-content-center h-100">
-                                <img class="w-100 position-relative z-index-2 pt-4"
-                                    src="../assets/img/illustrations/rocket-white.png" alt="rocket">
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                <i class="fa fa-users text-lg opacity-10"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="card h-100 p-3">
-            <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100"
-                style="background-image: url('../assets/img/ivancik.jpg');">
-                <span class="mask bg-gradient-dark"></span>
-                <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
-                    <h5 class="text-white font-weight-bolder mb-4 pt-2">Work with the rockets</h5>
-                    <p class="text-white">Wealth creation is an evolutionarily recent positive-sum game. It is all about
-                        who take the opportunity first.</p>
-                    <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
-                        Read More
-                        <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-                    </a>
+        <div class="col-xl-3 col-sm-6">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Zavodlar soni</p>
+                                <h5 class="font-weight-bolder mb-0">
+                                    {{ $count['role_2'] }}
+                                    <span class="text-success text-sm font-weight-bolder">ta</span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                <i class="fa fa-industry text-lg opacity-10"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endcan
 </div>
 <div class="row mt-4">
     <div class="col-lg-5 mb-lg-0 mb-4">
@@ -204,7 +230,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Plastmassa</p>
                             </div>
-                            <h4 class="font-weight-bolder">5,800 kg</h4>
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[1]))
+                                    {{ number_format($netvals[1], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>
                             <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90"
                                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -236,7 +268,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Maklatura</p>
                             </div>
-                            <h4 class="font-weight-bolder">3,500 kg</h4>
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[3]))
+                                    {{ number_format($netvals[3], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>
                             <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60"
                                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -250,7 +288,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Shisha</p>
                             </div>
-                            <h4 class="font-weight-bolder">1,500 kg</h4>
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[4]))
+                                    {{ number_format($netvals[4], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>
                             <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30"
                                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -285,7 +329,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Metallom</p>
                             </div>
-                            <h4 class="font-weight-bolder">14,300 kg</h4>
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[2]))
+                                    {{ number_format($netvals[2], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>
                             <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90"
                                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -299,7 +349,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Yog'och</p>
                             </div>
-                            <h4 class="font-weight-bolder">1,900 kg</h4>
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[5]))
+                                    {{ number_format($netvals[5], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>
                             <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30"
                                     aria-valuemin="0" aria-valuemax="100"></div>
@@ -313,8 +369,13 @@ foreach ($users as $user) {
                                 </div>
                                 <p class="text-xs mt-1 mb-0 font-weight-bold">Gazlama</p>
                             </div>
-                            <h4 class="font-weight-bolder">430 kg</h4>
-                            <div class="progress w-75">
+                            <h4 class="font-weight-bolder">
+                                @if (isset($netvals[6]))
+                                    {{ number_format($netvals[6], 0, '.', ',') }} kg                                    
+                                @else
+                                    0 kg                                    
+                                @endif
+                            </h4>                            <div class="progress w-75">
                                 <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="50"
                                     aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -343,19 +404,20 @@ foreach ($users as $user) {
     window.onload = function() {
       var ctx = document.getElementById("chart-bars").getContext("2d");
 
-      new Chart(ctx, {
+      
+    new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          datasets: [{
-            label: "Sales",
-            tension: 0.4,
-            borderWidth: 0,
-            borderRadius: 4,
-            borderSkipped: false,
-            backgroundColor: "#fff",
-            data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-            maxBarThickness: 6
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Monthly Sales",
+                tension: 0.4,
+                borderWidth: 0,
+                borderRadius: 4,
+                borderSkipped: false,
+                backgroundColor: "#fff",
+                data: <?php echo $monthlyIn; ?>, // Use the monthly data from PHP
+                maxBarThickness: 6
           }, ],
         },
         options: {
@@ -425,9 +487,9 @@ foreach ($users as $user) {
       new Chart(ctx2, {
         type: "line",
         data: {
-          labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           datasets: [{
-              label: "Mobile apps",
+              label: "Tushum",
               tension: 0.4,
               borderWidth: 0,
               pointRadius: 0,
@@ -435,12 +497,12 @@ foreach ($users as $user) {
               borderWidth: 3,
               backgroundColor: gradientStroke1,
               fill: true,
-              data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+              data: <?php echo $monthlyIn; ?>, // Use the monthly data from PHP
               maxBarThickness: 6
 
             },
             {
-              label: "Websites",
+              label: "Sotuv",
               tension: 0.4,
               borderWidth: 0,
               pointRadius: 0,
@@ -448,7 +510,7 @@ foreach ($users as $user) {
               borderWidth: 3,
               backgroundColor: gradientStroke2,
               fill: true,
-              data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+              data: <?php echo $monthlyOut; ?>, // Use the monthly data from PHP
               maxBarThickness: 6
             },
           ],

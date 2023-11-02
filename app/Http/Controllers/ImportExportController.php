@@ -24,6 +24,7 @@ class ImportExportController extends Controller
         return view('export')->with(['bases' => $bases, 'areas' => Area::all(), 'user' => $user ]);
     }
 
+
     public function store(Request $request)
     {
      
@@ -48,5 +49,17 @@ class ImportExportController extends Controller
         return back()->with('success', 'Muvofaqiyatli o‘zgartirildi');
     }
 
+    public function createNewProduct(Request $request)
+    {
+        
+        // Create the first record with 'import'
+            Base::create([
+                'user_id' => $request->user_id,
+                'type_id' => $request->type_id,
+                'client_id' => 8,
+                'import' => $request->sale,
+            ]);
+        return back()->with('success', 'Muvofaqiyatli o‘zgartirildi');
+    }
 
 }

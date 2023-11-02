@@ -50,9 +50,6 @@
                                         Yo‘nalish
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Zahira
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Telefon <br> Yaratilgan sana
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -92,14 +89,6 @@
                                                 <p class="text-xs text-dark font-weight-bold mb-0">{{$type->category->name}}</p>                                            
                                             @endforeach
                                         </td>
-                                        
-                                        <td class="text-center">
-                                            @php
-                                                $totalImport = $user->bases()->where('user_id', $user->id)->sum('import');
-                                            @endphp
-                                            <p class="text-xs text-secondary mb-0">{{$totalImport}}kg</p>
-                                        </td>
-                                        
                                         <td class="text-center">
                                             <a class="text-xs font-weight-bold mb-0" href="tel:{{ $user->phone_number}}">{{ $user->phone_number}}</a>
                                             <p class="text-secondary text-xs font-weight-bold">{{ ($user->created_at->format('m/d/Y')) }}</p>

@@ -13,21 +13,43 @@
                                 <h6>Tushum Ro‘yxati</h6>
                             </div>
                         </div>
-                        <div class="col-2 mt-4">
-                            <div class="">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    class=" btn bg-gradient-primary btn-sm justify-content-end" type="button">+&nbsp;
-                                    Qo'shish</a>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="col-sm-12 col-md-5 col-xl-4 m-4">
+                            <div>
+                                <div class="row d-flex justify-content-md-end">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                                        Qabul
+                                    </a>
+                                    @can('agent')
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
+                                            Terim
+                                        </a>
+                                    @endcan
+                                </div>
+                                @can('agent')
+                                    <div class="modal fade" id="createPproduct" tabindex="-1" aria-labelledby="createPproductLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="createPproductLabel">Hamkor yaratish</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>      
+                                                <div class="modal-body">
+                                                    <x-create-new-product :user="$user" :types="$types"></x-create-new-product>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endcan
+                                <div class="modal fade" id="importModal" tabindex="-1"
+                                    aria-labelledby="importModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Hamkor yaratish</h1>
+                                                <h1 class="modal-title fs-5" id="importModalLabel">Hamkor yaratish</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
-                                            </div>
+                                            </div>      
                                             <div class="modal-body">
                                                 <x-base-create :user="$user" :users="$users" :types="$types"></x-base-create>
                                             </div>
@@ -54,7 +76,6 @@
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Sana</th>
-                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,12 +134,6 @@
                                             <td  class="align-middle text-center">
                                                 <span
                                                     class="text-secondary text-xs font-weight-bold">{{ $base->created_at }}</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    <i class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>
-                                                </a>
                                             </td>
                                         </tr>
                                         @endif

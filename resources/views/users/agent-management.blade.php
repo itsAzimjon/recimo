@@ -55,9 +55,11 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Telefon <br> Yaratilgan sana
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tahrir
-                                    </th>
+                                    @can('admin')
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Tahrir
+                                        </th>    
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,28 +98,32 @@
                                         <td class="text-center">
                                             @php
                                                 $totalImport = $user->bases()->where('user_id', $user->id)->sum('import');
+                                                $totalExport = $user->bases()->where('user_id', $user->id)->sum('export');
+                                                $totalSum = $totalImport - $totalExport
                                             @endphp
-                                            <p class="text-xs text-secondary mb-0">{{$totalImport}}kg</p>
+                                            <p class="text-xs text-secondary mb-0">{{$totalSum}}kg</p>
                                         </td>
                                         
                                         <td class="text-center">
                                             <a class="text-xs font-weight-bold mb-0" href="tel:{{ $user->phone_number}}">{{ $user->phone_number}}</a>
                                             <p class="text-secondary text-xs font-weight-bold">{{ ($user->created_at->format('m/d/Y')) }}</p>
                                         </td>
-                                        <td class="justify-content-center align-items-center">
-                                            <div class="d-flex">
-                                                <a  href="{{ route('user.edit', $user->id) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Tahrirlash">
-                                                    <i class="fas fa-user-edit text-secondary"></i>
-                                                </a>
-                                                <form class="col-1 mx-2 p-0" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="border border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
-                                                        <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                                    </button>
-                                                </form>                                                
-                                            </div>
-                                        </td>
+                                        @can('admin')
+                                            <td class="justify-content-center align-items-center">
+                                                <div class="d-flex">
+                                                    <a  href="{{ route('user.edit', $user->id) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Tahrirlash">
+                                                        <i class="fas fa-user-edit text-secondary"></i>
+                                                    </a>
+                                                    <form class="col-1 mx-2 p-0" action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="border border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
+                                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                        </button>
+                                                    </form>                                                
+                                                </div>
+                                            </td>    
+                                        @endcan
                                     </tr>
                                     @endif
                                 @endforeach
@@ -126,27 +132,29 @@
                     </div>
                 </div>
             </div>
-            <div class="container d-flex">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-md-3 btn bg-gradient-primary btn-sm justify-content-end" type="button">+&nbsp; Qo'shish</a>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Hamkor yaratish</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <x-create :types="$types" :areas="$areas">
-                            <x-slot name="fio">F.I.O</x-slot>
-                            <x-slot name="role_id">3</x-slot>
-                        </x-create>
-                        
-                      </div>
+            @can('admin')
+                <div class="container d-flex">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-md-3 btn bg-gradient-primary btn-sm justify-content-end" type="button">+&nbsp; Qo'shish</a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hamkor yaratish</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <x-create :types="$types" :areas="$areas">
+                                <x-slot name="fio">F.I.O</x-slot>
+                                <x-slot name="role_id">3</x-slot>
+                            </x-create>
+                            
+                        </div>
+                        </div>
                     </div>
-                  </div>
-                </div>       
-            </div>    
+                    </div>       
+                </div>        
+            @endcan
         </div>
     </div>
 </div>
