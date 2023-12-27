@@ -21,11 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('/dashboard/{id}', [DashboardController::class, 'index'])->name('dashboard')->middleware('can:only-auth,id');
-	Route::get('/export/{id}', [ImportExportController::class, 'export'])->name('export')->middleware('can:only-auth,id');
+	Route::get('/export/{id}', [ ImportExportController::class, 'export'])->name('export')->middleware('can:only-auth,id');
 	Route::get('/import/{id}', [ImportExportController::class, 'import'])->name('import')->middleware('can:only-auth,id');
 	Route::get('/base/{id}', [BaseController::class, 'index'])->name('base.index')->middleware('can:only-auth,id');
 	Route::get('/agent-management', [UserController::class, 'agent'])->name('agent.management');
 	Route::get('/order', [OrderController::class, 'index'])->name('order');
+	Route::post('/order/store', [OrderController::class, 'store'])->name('order-store');
 	Route::get('/user-profile/{id}/edit', [InfoUserController::class, 'edit'])->name('user-profile.edit')->middleware('can:only-auth,id');
 	Route::get('/users/search', [UserController::class, 'search'])->name('search.results');
     
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::group(['middleware' => 'checkUserRole:3'], function () {
 		Route::post('/createNewProduct', [ImportExportController::class, 'createNewProduct'])->name('createNewProduct');
+		Route::post('/importFromClient', [ImportExportController::class, 'importFromClient'])->name('importFromClient');
 	});
 });
 

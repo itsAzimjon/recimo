@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($bases as $index => $base)
-                                    @if ($user->id == $base->user_id && $base->export > 0)
+                                    @if ($user->id == $base->user_id && $base->export > 0 && $base->status == 1)
 
                                     {{-- Retrieve the type information for the current base --}}
                                     @php

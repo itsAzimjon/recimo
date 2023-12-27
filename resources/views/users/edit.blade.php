@@ -24,7 +24,6 @@
                             @if ( $user->name)
                                 {{ $user->name }}
                             @else    
-                                {{ $user->llc }}
                             @endif
                         </h5>
                         

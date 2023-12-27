@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('passport')->unique()->nullable();
             $table->bigInteger('inn')->unique()->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('prize')->nullable();
             $table->string('active')->default('1');
             $table->rememberToken();

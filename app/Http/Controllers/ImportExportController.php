@@ -13,14 +13,14 @@ class ImportExportController extends Controller
     public function import($id)
     {
         $user = User::findOrFail($id);
-        $bases = Base::latest()->paginate(40);
+        $bases = Base::latest()->paginate(80);
         return view('import')->with(['bases' => $bases, 'areas' => Area::all(), 'user' => $user, 'users' => User::all(), 'types' => Type::all() ]);
     }
 
     public function export($id)
     {
         $user = User::findOrFail($id);
-        $bases = Base::latest()->paginate(40);
+        $bases = Base::latest()->paginate(80);
         return view('export')->with(['bases' => $bases, 'areas' => Area::all(), 'user' => $user ]);
     }
 
@@ -28,38 +28,50 @@ class ImportExportController extends Controller
     public function store(Request $request)
     {
      
-       // Create the first record with 'import'
         Base::create([
             'user_id' => $request->user_id,
             'type_id' => $request->type_id,
             'client_id' => $request->client_id,
             'import' => $request->sale,
+            'status' => $request->status ?? 1,
         ]);
 
-        // Create the second record with 'export' and swapped 'user_id' and 'client_id'
         Base::create([
-            'user_id' => $request->client_id, // Swap user_id and client_id
+            'user_id' => $request->client_id,
             'type_id' => $request->type_id,
-            'client_id' => $request->user_id, // Swap user_id and client_id
+            'client_id' => $request->user_id,
             'export' => $request->sale,
+            'status' => $request->status ?? 1,
         ]);
 
     
 
-        return back()->with('success', 'Muvofaqiyatli o‘zgartirildi');
+        return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
     }
 
     public function createNewProduct(Request $request)
     {
+        Base::create([
+            'user_id' => $request->user_id,
+            'type_id' => $request->type_id,
+            'client_id' => 8,
+            'import' => $request->sale,
+            'status' => $request->status ?? 1,
+        ]);
+        return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
+    }
+
+    public function importFromClient(Request $request)
+    {
+        Base::create([
+            'user_id' => $request->user_id,
+            'type_id' => $request->type_id,
+            'client_id' => $request->user_id,
+            'import' => $request->sale,
+            'status' => $request->status ?? 1,
+        ]);
         
-        // Create the first record with 'import'
-            Base::create([
-                'user_id' => $request->user_id,
-                'type_id' => $request->type_id,
-                'client_id' => 8,
-                'import' => $request->sale,
-            ]);
-        return back()->with('success', 'Muvofaqiyatli o‘zgartirildi');
+        return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
     }
 
 }

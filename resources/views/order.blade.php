@@ -6,9 +6,39 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Barcha Buyurtmalar</h6>
-          </div>
+          <div class="card mb-4">
+            <div class="row d-flex justify-content-between">
+                <div class="col">
+                    <div class="card-header pb-0">
+                        <h6>Buyurtmalar</h6>
+                    </div>
+                </div>
+                @can('factory')
+                  <div class="col-sm-12 col-md-5 col-xl-4 m-4">
+                      <div>
+                          <div class="row d-flex justify-content-md-end">
+                              <a href="#" data-bs-toggle="modal" data-bs-target="#createOrder" class=" btn bg-gradient-primary btn-sm col-6" type="button">+&nbsp;
+                                  Buyurtma
+                              </a>
+                          </div>
+                          <div class="modal fade" id="createOrder" tabindex="-1"
+                              aria-labelledby="createOrderLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="createOrderLabel">Buyurtma yaratish</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>      
+                                      <div class="modal-body">
+                                        <x-order-create :categories="$categories"></x-order-create>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                @endcan
+            </div>
           <div class="card-body pt-4 p-3">
             <ul class="list-group">
               @foreach ($orders as $order)

@@ -16,10 +16,15 @@
                         <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                             <div>
                                 <div class="row d-flex justify-content-md-end">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
-                                        Qabul
-                                    </a>
+                                    @cannot('agent')
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                                            Qabul
+                                        </a> 
+                                    @endcannot
                                     @can('agent')
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#importFromClient" class="btn bg-gradient-primary btn-sm col-5 mx-2" type="button">+&nbsp;
+                                            Qabul
+                                        </a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
                                             Terim
                                         </a>
@@ -30,12 +35,26 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="createPproductLabel">Hamkor yaratish</h1>
+                                                    <h1 class="modal-title fs-5" id="createPproductLabel">Yaratish</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>      
                                                 <div class="modal-body">
                                                     <x-create-new-product :user="$user" :types="$types"></x-create-new-product>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="importFromClient" tabindex="-1" aria-labelledby="importFromClientLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="importFromClientLabel">Yaratish</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>      
+                                                <div class="modal-body">
+                                                    <x-import-from-client :user="$user" :users="$users" :types="$types"></x-import-from-client>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,7 +65,7 @@
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="importModalLabel">Hamkor yaratish</h1>
+                                                <h1 class="modal-title fs-5" id="importModalLabel">Yaratish</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>      
@@ -80,7 +99,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($bases as $index => $base)
-                                        @if ($user->id == $base->user_id && $base->import > 0)
+                                        @if ($user->id == $base->user_id && $base->import > 0 && $base->status == 1)
 
                                         {{-- Retrieve the type information for the current base --}}
                                         @php

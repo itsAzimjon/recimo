@@ -22,7 +22,6 @@ class InfoUserController extends Controller
 
         $data = [
             'name' => $request->name,
-            'llc' => $request->llc,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'passport' => $request->passport,

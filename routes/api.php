@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\OrderApiController;
+use App\Http\Controllers\Api\TypeApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +16,21 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/logreg', [AuthApiController::class, 'loginOrRegister']);
+Route::post('/login', [AuthApiController::class, 'login']);
+Route::post('/register', [AuthApiController::class, 'register']);
+//Route::post('login', [AuthApiController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('user', [UserApiController::class, 'index']);
+    Route::put('/user-edit/{id}', [UserApiController::class, 'update']);
+    Route::get('agents', [UserApiController::class, 'agents']);
+    Route::get('orders', [OrderApiController::class, 'index']);
+    Route::put('/base-status/{id}', [OrderApiController::class, 'update']);
+    Route::post('order-store', [OrderApiController::class, 'store']);
+    Route::get('types', [TypeApiController::class, 'index']);
+    Route::get('area', [TypeApiController::class, 'area']);
+    Route::get('category', [TypeApiController::class, 'category']);
+    Route::post('logout', [AuthApiController::class, 'logout']);
+
 });

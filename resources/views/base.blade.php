@@ -41,12 +41,14 @@
                 ->join('types', 'bases.type_id', '=', 'types.id')
                 ->join('categories', 'types.category_id', '=', 'categories.id')
                 ->where('types.category_id', $category->category_id)
+                ->where('bases.status', 1)
                 ->sum('import');
             
             $typeExport = $user->bases()
                 ->join('types', 'bases.type_id', '=', 'types.id')
                 ->join('categories', 'types.category_id', '=', 'categories.id')
                 ->where('types.category_id', $category->category_id)
+                ->where('bases.status', 1)
                 ->sum('export');
             
             $net = $typeImport - $typeExport; // Calculate the net result
@@ -78,23 +80,25 @@
                             </div>
                         </div>
                         @php
-                        // Get the import and export sums for the current type within the current category
-                        $typeImportSum = $user->bases()
-                            ->join('types', 'bases.type_id', '=', 'types.id')
-                            ->join('categories', 'types.category_id', '=', 'categories.id')
-                            ->where('categories.id', $category->category_id)
-                            ->where('types.name', $typeName)
-                            ->sum('import');
-        
-                        $typeExportSum = $user->bases()
-                            ->join('types', 'bases.type_id', '=', 'types.id')
-                            ->join('categories', 'types.category_id', '=', 'categories.id')
-                            ->where('categories.id', $category->category_id)
-                            ->where('types.name', $typeName)
-                            ->sum('export');
-        
-                        // Calculate the net result for the current type within the current category
-                        $netResult = $typeImportSum - $typeExportSum;
+                            $typeImportSum = $user->bases()
+                                ->join('types', 'bases.type_id', '=', 'types.id')
+                                ->join('categories', 'types.category_id', '=', 'categories.id')
+                                ->where('categories.id', $category->category_id)
+                                ->where('types.name', $typeName)
+                                ->where('bases.status', 1)
+                                ->sum('import');
+
+            
+                            $typeExportSum = $user->bases()
+                                ->join('types', 'bases.type_id', '=', 'types.id')
+                                ->join('categories', 'types.category_id', '=', 'categories.id')
+                                ->where('categories.id', $category->category_id)
+                                ->where('types.name', $typeName)
+                                ->where('bases.status', 1)
+                                ->sum('export');
+
+            
+                            $netResult = $typeImportSum - $typeExportSum;
                         @endphp
         
                         <div class="d-flex align-items-center text-dark text-sm font-weight-bold">

@@ -14,7 +14,8 @@ class Base extends Model
         'client_id',
         'type_id',
         'import',
-        'export'
+        'export',
+        'status'
     ];
 
     public function user(){

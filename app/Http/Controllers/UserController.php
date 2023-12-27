@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Area;
 use App\Models\Base;
-use App\Models\Category;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +27,6 @@ class UserController extends Controller
             ->leftJoin('type_user', 'users.id', '=', 'type_user.user_id')
             ->where(function ($query) use ($searchQuery) {
                 $query->where('name', 'like', "%$searchQuery%")
-                    ->orWhere('llc', 'like', "%$searchQuery%")
                     ->orWhere('phone_number', 'like', "%$searchQuery%")
                     ->orWhere('address', 'like', "%$searchQuery%")
                     ->orWhere('passport', 'like', "%$searchQuery%")
@@ -79,13 +78,13 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'photo' => $path ,
-            'llc' => $request->llc,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'area_id' => $request->area_id,
             'passport' => $request->passport,
             'inn' => $request->inn,
             'role_id' => $request->role_id,
+            'remember_token' => Str::random(60),
             'password' => Hash::make($request->password),
         ]);
     
@@ -119,7 +118,6 @@ class UserController extends Controller
         $data = [
             'name' => $request->name,
             'photo' => $path ?? $user->photo,
-            'llc' => $request->llc,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'area_id' => $request->area_id,

@@ -15,6 +15,7 @@
             ->join('types', 'bases.type_id', '=', 'types.id')
             ->join('categories', 'types.category_id', '=', 'categories.id')
             ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+            ->where('bases.status', 1)
             ->sum('import');
             $monthlyDataIn[] = $sumImport;
 
@@ -23,6 +24,7 @@
             ->join('types', 'bases.type_id', '=', 'types.id')
             ->join('categories', 'types.category_id', '=', 'categories.id')
             ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+            ->where('bases.status', 1)
             ->sum('export');
             $monthlyDataOut[] = $sumExport;
         }
@@ -48,16 +50,18 @@ $netvals = []; // Initialize an array to store netval values
             ->join('types', 'bases.type_id', '=', 'types.id')
             ->join('categories', 'types.category_id', '=', 'categories.id')
             ->where('types.category_id', $category->category_id)
+            ->where('bases.status', 1)
             ->sum('import');
         
         $typeExport = $user->bases()
             ->join('types', 'bases.type_id', '=', 'types.id')
             ->join('categories', 'types.category_id', '=', 'categories.id')
             ->where('types.category_id', $category->category_id)
+            ->where('bases.status', 1)
             ->sum('export');
 
         $today = now()->toDateString(); 
-        $sumImport = $user->bases()->join('types', 'bases.type_id', '=', 'types.id')->whereDate('bases.created_at', $today)->sum('import');
+        $sumImport = $user->bases()->join('types', 'bases.type_id', '=', 'types.id')->whereDate('bases.created_at', $today)->where('bases.status', 1)->sum('import');
         
         $netval = $typeImport - $typeExport;
         
