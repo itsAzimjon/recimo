@@ -2,7 +2,29 @@
 
 @section('auth')
 
-
+    @if(session('success'))
+        <div class="m-3  alert alert-success alert-dismissible fade-show" style="width: 40%; position: absolute; top: 0px; right: 10px; z-index: 9;" id="alert" role="alert">
+            <span class="alert-text text-white">
+            {{ session('success') }}</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="m-3  alert alert-danger alert-dismissible fade-show" style="width: 40%; position: absolute; top: 0px; right: 10px; z-index: 9;" id="alert" role="alert">
+            <span class="alert-text text-white">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>
+        </div>
+    @endif
     @if(\Request::is('static-sign-up')) 
         @include('layouts.navbars.guest.nav')
         @yield('content')

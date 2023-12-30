@@ -101,7 +101,6 @@ class AuthApiController extends Controller
         $phone_number = Session::get('phone_number');
         $request->validate([
             'name' => 'required',
-            // Add other validation rules as needed
         ]);
     
         $user = User::create([

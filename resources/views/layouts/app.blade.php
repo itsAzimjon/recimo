@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="76x76" hreff="{{  asset('/assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{  asset('/assets/img/favicon.png')}}">
     <title>
-        Project
+        Ekosfera
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -29,13 +29,14 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
+   
     @auth
         @yield('auth')
     @endauth
     @guest
         @yield('guest')
     @endguest
-
+    
     <!--   Core JS Files   -->
     <script src="{{  asset('/assets/js/core/popper.min.js')}}"></script>
     <script src="{{  asset('/assets/js/core/bootstrap.min.js')}}"></script>
@@ -56,9 +57,17 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-    </script>
 
-
+        setTimeout(function() {
+            var errorAlert = document.getElementById('alert');
+            if (errorAlert) {
+                errorAlert.classList.add('fade-out');
+                setTimeout(function() {
+                    errorAlert.style.display = 'none';
+                }, 500); // Adjust the duration of the fade-out animation
+            }
+        }, 7000);
+</script>
    {{-- <script>
     if ('Notification' in window) {
         Notification.requestPermission().then(function (permission) {

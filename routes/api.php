@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/logreg', [AuthApiController::class, 'loginOrRegister']);
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
-//Route::post('login', [AuthApiController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserApiController::class, 'index']);

@@ -9,6 +9,10 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return redirect()->route('dashboard', ['id' => Auth::id()])->with(['success'=>'You are logged in.']);
+        if (auth()->check()) {
+            return redirect()->route('dashboard', ['id' => auth()->id()]);
+        }
+
+        return redirect()->route('login');
     }
 }

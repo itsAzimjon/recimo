@@ -3,7 +3,7 @@
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ auth()->check() ? route('dashboard', ['id' => auth()->user()->id]) : route('login') }}">
         <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="...">
-        <span class="ms-3 font-weight-bold">Project</span>
+        <span class="ms-3 font-weight-bold">Ekosfera</span>
     </a>
   </div>
   <hr class="horizontal dark mt-0">
@@ -139,7 +139,7 @@
           <span class="nav-link-text ms-1">Buyurtmalar</span>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('massage') ? 'active' : '') }}" href="{{ url('massage') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg class="text-center text-dark {{ (Request::is('massage') ? 'text-white' : 'text-dark') }}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mailbox2" viewBox="0 0 16 16">
@@ -149,7 +149,7 @@
           </div>
           <span class="nav-link-text ms-1">Xabarlar</span>
         </a>
-      </li> 
+      </li>  --}}
       <li class="nav-item">
         <a class="nav-link {{ (Route::currentRouteName() == 'user-profile.edit' ? 'active' : '') }}" href="{{ route('user-profile.edit', Auth::user()) }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

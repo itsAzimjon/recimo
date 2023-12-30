@@ -6,7 +6,10 @@ use App\Models\Area;
 use App\Models\Base;
 use App\Models\Type;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ImportExportController extends Controller
 {
@@ -27,7 +30,27 @@ class ImportExportController extends Controller
 
     public function store(Request $request)
     {
-     
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'type_id' => 'required|exists:types,id',
+            'client_id' => 'required|exists:users,id',
+            'sale' => 'required|numeric',
+            'status' => 'nullable|in:0,1',
+        ]);
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'type_id' => 'required|exists:types,id',
+            'client_id' => 'required', 'exists:users,id',
+            'sale' => 'required|numeric',
+            'status' => 'nullable|in:0,1',
+        ]);
+    
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput()->with('error', 'Xato boshqatdan urinib ko\'ring');
+        }
+    
+
         Base::create([
             'user_id' => $request->user_id,
             'type_id' => $request->type_id,
@@ -51,6 +74,13 @@ class ImportExportController extends Controller
 
     public function createNewProduct(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'type_id' => 'required|exists:types,id',
+            'sale' => 'required|numeric',
+            'status' => 'nullable|in:0,1',
+        ]);
+
         Base::create([
             'user_id' => $request->user_id,
             'type_id' => $request->type_id,
@@ -63,12 +93,20 @@ class ImportExportController extends Controller
 
     public function importFromClient(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'type_id' => 'required|exists:types,id',
+            'client_id' => 'required|exists:users,id',
+            'sale' => 'required|numeric',
+            'status' => 'nullable|in:0,1',
+        ]);
+        
         Base::create([
             'user_id' => $request->user_id,
             'type_id' => $request->type_id,
             'client_id' => $request->user_id,
             'import' => $request->sale,
-            'status' => $request->status ?? 1,
+            'status' => $request->status ?? 0,
         ]);
         
         return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -74,6 +74,22 @@ class UserController extends Controller
             $path = null;
         }
         
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust image validation rules as needed
+            'phone_number' => 'required|string|max:20',
+            'address' => 'nullable|string|max:555',
+            'area_id' => 'required|exists:areas,id',
+            'passport' => 'required|string|max:55',
+            'inn' => 'nullable|string|max:55',
+            'password' => 'nullable|string|min:4', // Adjust password validation rules as needed
+        ]);
+        
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -115,6 +131,7 @@ class UserController extends Controller
             $path = $request->file('photo')->store('profile-photo');
         }
 
+        
         $data = [
             'name' => $request->name,
             'photo' => $path ?? $user->photo,
@@ -124,13 +141,27 @@ class UserController extends Controller
             'passport' => $request->passport,
             'inn' => $request->inn,
         ];
+        
         if ($request->password) {
             $data['password'] =  Hash::make($request->password);
         }
 
-        $user->types()->detach();
-
+        $validator = Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'nullable|string|max:555',
+            'area_id' => 'required|exists:areas,id',
+            'passport' => 'required|string|max:55',
+            'inn' => 'nullable|string|max:55',
+        ]);
         
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user->types()->detach();
         if ( isset($request->types)){
             foreach ($request->types as $type) {
                 $user->types()->attach($type);
