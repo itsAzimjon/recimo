@@ -3,7 +3,7 @@
 @section('content')
 
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-    <div class="container-fluid py-4">
+    <div class="py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -13,7 +13,7 @@
                                 <h6>Tushum Ro‘yxati</h6>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-5 col-xl-4">
+                        <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                             <div>
                                 <div class="row d-flex justify-content-md-end">
                                     @cannot('agent')
