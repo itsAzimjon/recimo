@@ -57,7 +57,7 @@
         </div>
     </div>
     
-    <div class="container-fluid py-4">
+    <div class="py-4">
         <div class="tab-content">
             <div id="menu1" class="tab-pane fade show active">
                 <div class="card">
