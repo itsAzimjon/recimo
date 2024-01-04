@@ -107,9 +107,9 @@
                     </div>
                 </div>
             </div>
-            <div class="container d-flex">
+            {{-- <div class="container d-flex">
                 <a href="#" class="col-md-3 btn bg-gradient-primary btn-sm justify-content-end" type="button">+&nbsp; Qo'shish</a>
-            </div>  
+            </div>   --}}
         </div>
     </div>
 </div>
