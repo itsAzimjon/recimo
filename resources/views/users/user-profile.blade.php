@@ -7,7 +7,7 @@
         <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{  asset('/assets/img/curved-images/curved0.jpg')}}'); background-position-y: 50%;">
             <span class="mask bg-gradient-primary opacity-6"></span>
         </div>
-        <div class="card card-body blur shadow-blur mx-4 mt-n6">
+        <div class="card card-body blur shadow-blur mt-n6">
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">

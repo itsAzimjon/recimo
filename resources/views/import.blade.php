@@ -13,7 +13,7 @@
                                 <h6>Tushum Ro‘yxati</h6>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-5 col-xl-4 m-4">
+                        <div class="col-sm-12 col-md-5 col-xl-4">
                             <div>
                                 <div class="row d-flex justify-content-md-end">
                                     @cannot('agent')
