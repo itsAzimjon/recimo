@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="alert alert-secondary mx-4" role="alert">
+    <div class="alert alert-secondary" role="alert">
         <span class="text-white">
             <strong>Agentlar va Shaxobchalar</strong>
         </span>
@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4 mx-4">
+            <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between mb-3">
                         <div>
