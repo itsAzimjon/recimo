@@ -18,9 +18,7 @@ class OrderApiController extends Controller
 
         $orders = Order::where('user_id', $userId)->latest()->get();
         $baseRecords = Base::where('client_id', $userId)->latest()->get();
-
         $combinedResults = $orders->merge($baseRecords)->sortByDesc('created_at');
-
         $combinedResultsResource = OrderResource::collection($combinedResults);
 
         return $combinedResultsResource;
@@ -30,13 +28,13 @@ class OrderApiController extends Controller
     {
         $order = Order::create([
             'user_id' => auth()->id(),
+            'area' => auth()->user()->area->name,
+            'address' => auth()->user()->address,
             'category_id' => $request->category_id,
-            'area' => $request->area,
-            'address' => $request->address,
             'weight' => $request->weight,
             'price' => $request->price ?? 0
         ]);
-        
+          
     
         OrderCreated::dispatch($order);
     

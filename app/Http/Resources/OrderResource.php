@@ -20,6 +20,7 @@ class OrderResource extends JsonResource
         $agentName = User::find($this->client_id)->name ?? null;
 
         $resourceArray = [
+            'id' => $this->id,
             'created_date' => $this->created_at->format('Y-m-d'),
             'created_time' => $this->created_at->format('H:i'),
         ];
