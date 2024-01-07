@@ -37,7 +37,7 @@
                 <label for="sale">Mahsulot vazni</label>
                 <input type="number" name="sale" class="form-control">
             </div>
-            <input type="hidden" name="status" value="0" class="form-control">
+            <input type="hidden" name="status" value="3" class="form-control">
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
             </div>

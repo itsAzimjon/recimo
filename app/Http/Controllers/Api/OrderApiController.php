@@ -32,7 +32,7 @@ class OrderApiController extends Controller
             'address' => auth()->user()->address,
             'category_id' => $request->category_id,
             'weight' => $request->weight,
-            'price' => $request->price ?? 0
+            'price' => $request->price ?? 3
         ]);
           
     

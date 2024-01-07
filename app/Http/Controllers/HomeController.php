@@ -13,6 +13,6 @@ class HomeController extends Controller
             return redirect()->route('dashboard', ['id' => auth()->id()]);
         }
 
-        return redirect()->route('login');
+        //return redirect()->route('login');
     }
 }

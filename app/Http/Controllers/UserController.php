@@ -76,13 +76,13 @@ class UserController extends Controller
         
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust image validation rules as needed
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone_number' => 'required|string|max:20',
             'address' => 'nullable|string|max:555',
             'area_id' => 'required|exists:areas,id',
             'passport' => 'required|string|max:55',
             'inn' => 'nullable|string|max:55',
-            'password' => 'nullable|string|min:4', // Adjust password validation rules as needed
+            'password' => 'nullable|string|min:4',
         ]);
         
         if ($validator->fails()) {

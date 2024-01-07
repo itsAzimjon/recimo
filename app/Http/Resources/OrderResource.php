@@ -38,7 +38,7 @@ class OrderResource extends JsonResource
             $resourceArray['agent_name'] = $agentName;
         }
         if ($this->category) {
-            $resourceArray['category'] = $this->category->name;
+            $resourceArray['type'] = $this->category->name;
         }
         if ($this->import) {
             $resourceArray['kg'] = $this->import;

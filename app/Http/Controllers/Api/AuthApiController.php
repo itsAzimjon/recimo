@@ -92,7 +92,7 @@ class AuthApiController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24 * 365);
 
         return response([
-            'massage' => $token
+            'massage' => $cookie
         ])->withCookie($cookie);
     }
 
