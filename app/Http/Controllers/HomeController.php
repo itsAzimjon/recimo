@@ -11,8 +11,8 @@ class HomeController extends Controller
     {
         if (auth()->check()) {
             return redirect()->route('dashboard', ['id' => auth()->id()]);
+        }else{
+            return redirect()->route('login');
         }
-
-        //return redirect()->route('login');
     }
 }
