@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->default(5);
             $table->foreignId('area_id')->nullable()->constrained()->onDelete('cascade');
             $table->text('photo')->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('phone_number')->unique();
             $table->string('address')->nullable();
             $table->string('passport')->unique()->nullable();
             $table->bigInteger('inn')->unique()->nullable();
-            $table->string('password')->nullable();
+            $table->string('password');
             $table->string('prize')->nullable();
             $table->string('active')->default('1');
             $table->rememberToken();

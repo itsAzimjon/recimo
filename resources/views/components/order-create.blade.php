@@ -59,4 +59,3 @@
         updateOptions(typeSearchInput, typeSelectElement, typeOptions);
     });
 </script>
-

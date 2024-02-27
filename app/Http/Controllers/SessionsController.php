@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Http;
 
 class SessionsController extends Controller
 {
@@ -33,7 +33,6 @@ class SessionsController extends Controller
     
     public function destroy()
     {
-
         Auth::logout();
 
         return redirect('/login')->with(['success'=>'You\'ve been logged out.']);

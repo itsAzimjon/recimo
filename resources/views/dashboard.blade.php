@@ -1,43 +1,42 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-@php
-    
-        // gets monthly data for chart
-        $monthlyDataIn = []; 
-        $monthlyDataOut = []; 
+@php 
+    // gets monthly data for chart
+    $monthlyDataIn = []; 
+    $monthlyDataOut = []; 
 
-        for ($i = 1; $i <= 12; $i++) {
-        $firstDay = now()->setDay(1)->setMonth($i)->startOfDay();
-        $lastDay = now()->setDay(1)->setMonth($i)->endOfMonth();
+    for ($i = 1; $i <= 12; $i++) {
+    $firstDay = now()->setDay(1)->setMonth($i)->startOfDay();
+    $lastDay = now()->setDay(1)->setMonth($i)->endOfMonth();
 
-        $sumImport = $user->bases()
-            ->join('types', 'bases.type_id', '=', 'types.id')
-            ->join('categories', 'types.category_id', '=', 'categories.id')
-            ->whereBetween('bases.created_at', [$firstDay, $lastDay])
-            ->where('bases.status', 1)
-            ->sum('import');
-            $monthlyDataIn[] = $sumImport;
+    $sumImport = $user->bases()
+        ->join('types', 'bases.type_id', '=', 'types.id')
+        ->join('categories', 'types.category_id', '=', 'categories.id')
+        ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+        ->where('bases.status', 1)
+        ->sum('import');
+        $monthlyDataIn[] = $sumImport;
 
 
-        $sumExport = $user->bases()
-            ->join('types', 'bases.type_id', '=', 'types.id')
-            ->join('categories', 'types.category_id', '=', 'categories.id')
-            ->whereBetween('bases.created_at', [$firstDay, $lastDay])
-            ->where('bases.status', 1)
-            ->sum('export');
-            $monthlyDataOut[] = $sumExport;
-        }
-        $monthlyIn = json_encode($monthlyDataIn);
-        $monthlyOut = json_encode($monthlyDataOut);
-        //chart ends here 
+    $sumExport = $user->bases()
+        ->join('types', 'bases.type_id', '=', 'types.id')
+        ->join('categories', 'types.category_id', '=', 'categories.id')
+        ->whereBetween('bases.created_at', [$firstDay, $lastDay])
+        ->where('bases.status', 1)
+        ->sum('export');
+        $monthlyDataOut[] = $sumExport;
+    }
+    $monthlyIn = json_encode($monthlyDataIn);
+    $monthlyOut = json_encode($monthlyDataOut);
+    //chart ends here 
 
-$categories = $user->bases()
-    ->join('types', 'bases.type_id', '=', 'types.id')
-    ->join('categories', 'types.category_id', '=', 'categories.id')
-    ->select('categories.id as category_id', 'categories.name as category_name')
-    ->distinct()
-    ->get();
+    $categories = $user->bases()
+        ->join('types', 'bases.type_id', '=', 'types.id')
+        ->join('categories', 'types.category_id', '=', 'categories.id')
+        ->select('categories.id as category_id', 'categories.name as category_name')
+        ->distinct()
+        ->get();
 @endphp
 
 @php
@@ -97,7 +96,71 @@ foreach ($users as $user) {
     }
 }
 @endphp
-
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-md-none col-xl-4 mx-4">
+    <div>
+        <div class="row d-flex justify-content-md-end">
+            @cannot('agent')
+                <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                    Qabul
+                </a> 
+            @endcannot
+            @can('agent')
+                <a href="#" data-bs-toggle="modal" data-bs-target="#importFromClient" class="btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                    Qabul
+                </a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
+                    Terim
+                </a>
+            @endcan
+        </div>
+        @can('agent')
+            <div class="modal fade" id="createPproduct" tabindex="-1" aria-labelledby="createPproductLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="createPproductLabel">Yaratish</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>      
+                        <div class="modal-body">
+                            <x-create-new-product :user="$user" :types="$types"></x-create-new-product>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="importFromClient" tabindex="-1" aria-labelledby="importFromClientLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="importFromClientLabel">Yaratish</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>      
+                        <div class="modal-body">
+                            <x-import-from-client :user="$user" :users="$users" :types="$types"></x-import-from-client>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endcan
+        <div class="modal fade" id="importModal" tabindex="-1"
+            aria-labelledby="importModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="importModalLabel">Yaratish</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>      
+                    <div class="modal-body">
+                        <x-base-create :user="$user" :users="$users" :types="$types"></x-base-create>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="@can('admin') col-xl-3 @endcan  col-sm-6 mb-xl-0 mb-4">
         <div class="card">
@@ -124,7 +187,7 @@ foreach ($users as $user) {
     <div class="@can('admin') col-xl-3 @endcan  col-sm-6 mb-xl-0 mb-4">
         <div class="card">
             <div class="card-body p-3">
-                <div class="row">
+                <a href="{{ route('agent.management')}} " class="row text-secondary">
                     <div class="col-8">
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Agentlar soni</p>
@@ -139,7 +202,7 @@ foreach ($users as $user) {
                             <i class="fa fa-campground text-lg opacity-10" aria-hidden="true"></i>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -147,7 +210,7 @@ foreach ($users as $user) {
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
-                    <div class="row">
+                    <a href="{{ route('user.management')}} " class="row text-secondary">
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Mijozlar soni</p>
@@ -162,14 +225,14 @@ foreach ($users as $user) {
                                 <i class="fa fa-users text-lg opacity-10"></i>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-sm-6">
             <div class="card">
                 <div class="card-body p-3">
-                    <div class="row">
+                    <a href="{{ route('company.management')}} " class="row text-secondary">
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Zavodlar soni</p>
@@ -184,7 +247,7 @@ foreach ($users as $user) {
                                 <i class="fa fa-industry text-lg opacity-10"></i>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
