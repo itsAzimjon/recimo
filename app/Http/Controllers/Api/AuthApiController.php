@@ -36,7 +36,7 @@ class AuthApiController extends Controller
                     "sms" => [
                         "originator" => "3700",
                         "content" => [
-                            "text" => "Ro‘yxatdan o‘tish kodi: $pass"
+                            "text" => "Ro‘yxatsan o‘tish kodi: $pass"
                         ]
                     ]
                 ]
@@ -48,12 +48,12 @@ class AuthApiController extends Controller
             $user->update([
                 'password' => Hash::make($pass)
             ]);
-            return response()->json(['message' => 'login: ' . $phone_number]);
+            return response()->json(['message' => 'login' , 'phone' =>  $phone_number]);
         } elseif ($user) {
             $user->update([
-            'password' => Hash::make($pass)
+                'password' => Hash::make($pass)
             ]);
-            return response()->json(['message' => 'register: ' . $phone_number]);
+            return response()->json(['message' => 'register', 'phone' =>  $phone_number]);
         }
         else {
             User::create([
