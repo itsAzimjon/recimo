@@ -81,6 +81,7 @@ class AuthApiController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24 * 365);
     
         return response([
+            'message' => 'Muvaffaqiyatli ro‘yxatdan o‘tdingiz',
             'token' => $token
         ])->withCookie($cookie);
     }
@@ -99,7 +100,7 @@ class AuthApiController extends Controller
         $user = User::where('phone_number', $phone_number)->first();
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return response()->json(['error' => 'Foydalanuvchi topilmadi'], 404);
         }
 
         $user->update([
@@ -118,8 +119,8 @@ class AuthApiController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24 * 365);
 
         return response([
-            'message' => 'User information updated successfully',
-            'token' => $token,
+            'message' => 'Muvaffaqiyatli ro‘yxatdan o‘tdingiz',
+            'token' => $token
         ])->withCookie($cookie);
     }
 
