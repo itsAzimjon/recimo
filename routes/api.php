@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth', [AuthApiController::class, 'auth']);
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
+Route::get('area', [TypeApiController::class, 'area']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserApiController::class, 'index']);
@@ -28,8 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/base-status/{id}', [OrderApiController::class, 'update']);
     Route::post('order-store', [OrderApiController::class, 'store']);
     Route::get('types', [TypeApiController::class, 'index']);
-    Route::get('area', [TypeApiController::class, 'area']);
     Route::get('category', [TypeApiController::class, 'category']);
     Route::post('logout', [AuthApiController::class, 'logout']);
-
 });
