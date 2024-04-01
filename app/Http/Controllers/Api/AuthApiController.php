@@ -61,7 +61,7 @@ class AuthApiController extends Controller
                 'name' => '0',
                 'password' => Hash::make($pass),
             ]);
-            return response()->json(['message' => 'register: ' . $phone_number]);
+            return response()->json(['message' => 'register', 'phone' =>  $phone_number]);
         }
     }
     
