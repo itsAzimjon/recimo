@@ -19,14 +19,14 @@
                     @csrf
                     <label>Telefon Raqam</label>
                     <div class="mb-3">
-                      <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="+998 91 311 22" value="913112233" aria-label="phone_number" aria-describedby="email-addon">
+                      <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="+998 91 311 22 33" aria-label="phone_number" aria-describedby="email-addon">
                       @error('phone_number')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
                     </div>
                     <label>Parol</label>
                     <div class="mb-3">
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Parol" value="secret" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Parol"  aria-label="Password" aria-describedby="password-addon">
                       @error('password')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
