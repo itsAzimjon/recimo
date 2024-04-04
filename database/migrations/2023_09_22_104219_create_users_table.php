@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('role_id')->default(5);
+            $table->string('role_id')->default(5);
             $table->foreignId('area_id')->nullable()->constrained()->onDelete('cascade');
             $table->text('photo')->nullable();
             $table->string('name')->nullable();
@@ -25,7 +25,8 @@ class CreateUsersTable extends Migration
             $table->bigInteger('inn')->unique()->nullable();
             $table->string('password');
             $table->string('prize')->nullable();
-            $table->string('active')->default('1');
+            $table->string('commission')->nullable()->default('0.02');
+            $table->integer('active')->default('1');
             $table->rememberToken();
             $table->timestamps();
         });

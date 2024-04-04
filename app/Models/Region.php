@@ -5,20 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class Region extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'region_id'
     ];
 
-    public function users(){
-        return $this->hasMany(User::class);
-    }
-
-    public function region(){
-        return $this->belongsTo(Region::class);
+    public function areas(){
+        return $this->hasMany(Area::class);
     }
 }

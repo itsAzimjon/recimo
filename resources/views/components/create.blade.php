@@ -1,6 +1,7 @@
+{{-- agent hamkor create --}}
 <div class="card">
     <div class="card-header pb-0 px-3">
-        <h6 class="mb-0">{{ __('Profile Information') }}</h6>
+        <h6 class="mb-0">{{ __('Profil') }}</h6>
     </div>
     <div class="card-body pt-4 p-3">
         <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
@@ -51,10 +52,13 @@
                     <div class="form-group">
                         <label for="user.phone" class="form-control-label">Telefon</label>
                         <div class="@error('user.phone')border border-danger rounded-3 @enderror">
-                            <input class="form-control" type="tel" placeholder="+998901234567" id="number" name="phone_number">
-                            @error('phone')
-                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                            @enderror
+                            <div class="input-group">
+                                <div class="input-group-text">+998</div>
+                                <input class="form-control" type="number" placeholder="" id="number" name="phone_number">
+                                @error('phone')
+                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,13 +111,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label for="user-password" class="form-control-label">Parol</label>
-                        <div class="@error('password')border border-danger rounded-3 @enderror">
-                            <input class="form-control" type="password" placeholder="******"
-                                id="user-password" name="password">
-                            @error('password')
+                        <label for="user-commission" class="form-control-label">Komissiya foizi</label>
+                        <div class="@error('commission')border border-danger rounded-3 @enderror">
+                            <input id="numberInput" class="form-control" type="text" value="0.02"
+                             name="commission">
+                            @error('commission')
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="user-amount" class="form-control-label">Balansni to‘ldirish</label>
+                        <div class="@error('amount')border border-danger rounded-3 @enderror">
+                            <input class="form-control" type="number" placeholder="00 000"
+                                id="user-amount" name="amount">
+                            @error('amount')
                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -138,7 +154,7 @@
             </div>
             
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes'}}</button>
+                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Saqlash'}}</button>
             </div>
         </form>
 

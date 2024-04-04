@@ -112,11 +112,14 @@
                                     <div class="form-group">
                                         <label for="user.phone" class="form-control-label">Telefon</label>
                                         <div class="@error('user.phone_nuber')border border-danger rounded-3 @enderror">
-                                            <input class="form-control" type="tel" placeholder="+998901234567"
-                                                id="number" name="phone_number" value="{{ $user->phone_number }}">
-                                            @error('phone')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                            @enderror
+                                            <div class="input-group">
+                                                <div class="input-group-text">+998</div>
+                                                <input class="form-control px-1" type="number" placeholder="+998901234567"
+                                                    id="number" name="phone_number" value="{{ $user->phone_number }}">
+                                                @error('phone')
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,18 +172,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="user-password" class="form-control-label">Parol</label>
-                                        <div class="@error('password')border border-danger rounded-3 @enderror">
-                                            <input class="form-control" type="password" placeholder="******"
-                                                id="user-password" name="password">
-                                            @error('password')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                            @cannot('admin')
                             <div class="row mx-1 mt-3">
@@ -202,7 +193,7 @@
                            @endcannot
                             
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes'
+                                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Saqlash'
                                     }}</button>
                             </div>
                         </form>

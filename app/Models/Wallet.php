@@ -5,25 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Base extends Model
+class Wallet extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'client_id',
-        'type_id',
-        'import',
-        'export',
-        'token',
-        'status'
+        'wallet_number',
+        'money'
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
-    }
-
-    public function types(){
-        return $this->hasMany(Type::class);
     }
 }

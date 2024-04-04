@@ -23,8 +23,9 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
     <!-- CSS Files -->
+    <link rel="stylesheet" href="{{  asset('css/app.css')}}">
     <link id="pagestyle" href="{{ asset('/assets/css/soft-ui-dashboard.css?v=1.0.3') }}" rel="stylesheet" />
 </head>
 
@@ -46,60 +47,15 @@
     <script src="{{  asset('/assets/js/plugins/chartjs.min.js')}}"></script>
     <script src="{{  asset('js/app.js') }}"></script>
     <script src="{{  mix('js/app.js') }}"></script>
-
+    
+    <script src="{{  asset('js/main.js') }}"></script>
     <script src="{{ asset('sw.js') }}"></script>
     @stack('dashboard')
     <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-            damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
 
-        setTimeout(function() {
-            var errorAlert = document.getElementById('alert');
-            if (errorAlert) {
-                errorAlert.classList.add('fade-out');
-                setTimeout(function() {
-                    errorAlert.style.display = 'none';
-                }, 500); // Adjust the duration of the fade-out animation
-            }
-        }, 7000);
-</script>
-   {{-- <script>
-    if ('Notification' in window) {
-        Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-                // Notification permission granted; you can now show notifications.
-                // navigator.serviceWorker.ready.then((sw) => {
-                //     sw.pushManager.subscribe({
-                //         userVisibleOnly: true, // Use a comma, not a semicolon
-                //         applicationServerKey: "BC5zel9Joqe0Y2yVTJjDhiElIisJTVHq-_p4rxC3zd60gQSqXzra_7_m7B12axwI42tZIUXYGXhIJ-t5MolKjNY"
-                //     }).then((subscription) => {
-                    //         // subscription successful
-                    //         fetch("/api/push-notification", {
-                        //             method: "post",
-                        //             body: JSON.stringify(subscription)
-                        //         }).then(()); // Alert should be inside a function
-                //     });
-                // });
-            }
-        });
-    }
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-        .then(function (registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function (error) {
-            console.error('Service Worker registration failed:', error);
-        });
-    }
-    </script> --}}
+
+    </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{  asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.3')}}"></script>
 </body>
 </html>

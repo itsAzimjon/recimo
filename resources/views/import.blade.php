@@ -11,24 +11,31 @@
                         <div class="col">
                             <div class="card-header pb-0">
                                 <h6>Tushum Ro‘yxati</h6>
+                                <small>Balans: {{ number_format($user->wallet->money) }} so‘m</small>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                             <div>
                                 <div class="row d-flex justify-content-md-end">
-                                    @cannot('agent')
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
-                                            Qabul
-                                        </a> 
-                                    @endcannot
-                                    @can('agent')
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#importFromClient" class="btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
-                                            Qabul
-                                        </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
-                                            Terim
-                                        </a>
-                                    @endcan
+                                    @if ($user->wallet->money > -01)
+                                        @cannot('agent')
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                                                Qabul
+                                            </a> 
+                                        @endcannot
+                                        @can('agent')
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#importFromClient" class="btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
+                                                Qabul
+                                            </a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
+                                                Terim
+                                            </a>
+                                        @endcan
+                                    @else
+                                    <a href="{{ route('wallet.show', ['user'=>$user->id])}}" class="btn bg-gradient-secondary btn-sm col-10 mx-2">
+                                        Hisobni to‘ldiring
+                                    </a> 
+                                    @endif
                                 </div>
                                 @can('agent')
                                     <div class="modal fade" id="createPproduct" tabindex="-1" aria-labelledby="createPproductLabel" aria-hidden="true">

@@ -3,22 +3,9 @@
         <form action="{{ route('importFromClient') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <input type="hidden" name="user_id" value="{{$user->id}}">
-            </div>
-            <div class="form-group">
-                <label for="type_id">Mahsulot turini tanlang</label>
-                <select name="type_id" id="type_id" class="form-select" aria-label="Default select example">
-                <option selected disabled>Tur</option>
-                @foreach ($types as $type)
-                    <option value="{{ $type->id }}" data-price="{{ $type->price }}">{{ $type->name }}</option>
-                @endforeach
-            </select>
-
-            </div>
-            <div class="form-group">
                 <label for="client_id">Mijozni tanlang</label>
                 <input type="text" id="client_search" class="form-control form-control-sm" placeholder="Mijozni izlash...">
-                <select name="client_id" class="form-select" aria-label="Default select example">
+                <select name="client_id" class="form-select" aria-label="Default select example" required>
                     <option selected disabled>Mijoz</option>
                     @foreach ($users as $user)
                         @if ($user->role_id == 5 && auth()->user()->can('agent')) 
@@ -30,17 +17,45 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-                <label for="sale">Mahsulot vazni (kg)</label>
-                <input type="number" name="sale" id="sale" class="form-control">
+            <div class="form-gr">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
             </div>
-            
-            <p id="price_display"></p>
-
-            <input type="hidden" name="status" value="3" class="form-control">
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Saqlash' }}</button>
+            <div id="product-rows">
+                <div class="row product-row mb-3">
+                    <div class="col-8">
+                        <label for="type_id" class="form-label">Mahsulot turini tanlang</label>
+                        <div class="input-gr">
+                            <input type="text" class="d-none form-control form-control-sm type-search" placeholder="Mahsulot turnini izlash...">
+                            <select required name="type_id[]" class="form-select type-id" aria-label="Default select example">
+                                <option selected disabled>Tur</option>
+                                @foreach ($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }} {{ $type->id }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="sale" class="form-label">KG</label>
+                        <input required type="number" name="sale[]" class="form-control sale">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 justify-content-between">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button id="add-row" class="btn btn-sm btn-info w-100">Qo‘shish</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-md bg-gradient-dark w-100">Saqlash</button>
+                    </div>
+                </div>
             </div>
         </form>        
     </div>
 </div>
+            
+  

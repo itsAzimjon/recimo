@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -70,7 +72,7 @@ class AuthApiController extends Controller
     {    
         if (!Auth::attempt($request->only('phone_number', 'password'))) {
             return response([
-                'message' => 'Invalid credentials!'
+                'message' => 'SMS parol notog‘ri!'
             ], Response::HTTP_UNAUTHORIZED);
         }
     
@@ -88,7 +90,6 @@ class AuthApiController extends Controller
     
     public function register(Request $request)
     {
-        //$phone_number = Session::get('phone_number');
         $phone_number = $request->phone_number;
 
         $request->validate([
@@ -107,6 +108,14 @@ class AuthApiController extends Controller
             'name' => $request->name,
             'area_id' => $request->area_id,
             'address' => $request->address,
+        ]);
+
+        $region = Region::findOrFail($user->area->region->id);
+        $wallet = sprintf('%02d%02d%08d', $region->id, $user->area_id, $user->id);
+
+        Wallet::create([
+            'user_id' => $user->id,
+            'wallet_number' => $wallet,
         ]);
 
         Auth::login($user);

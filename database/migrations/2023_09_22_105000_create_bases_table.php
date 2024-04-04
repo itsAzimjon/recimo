@@ -18,8 +18,8 @@ class CreateBasesTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->integer('client_id')->nullable();
-            $table->bigInteger('import')->nullable();
-            $table->bigInteger('export')->nullable();
+            $table->string('import')->nullable();
+            $table->string('export')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });

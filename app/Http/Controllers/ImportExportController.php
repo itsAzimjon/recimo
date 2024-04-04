@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Area;
 use App\Models\Base;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -34,38 +36,40 @@ class ImportExportController extends Controller
             'user_id' => 'required|exists:users,id',
             'type_id' => 'required|exists:types,id',
             'client_id' => 'required|exists:users,id',
-            'sale' => 'required|numeric',
+            'sale' => 'required|array',
         ]);
 
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'type_id' => 'required|exists:types,id',
             'client_id' => 'required', 'exists:users,id',
-            'sale' => 'required|numeric',
+            'sale' => 'required|array',
         ]);
     
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput()->with('error', 'Xato boshqatdan urinib ko\'ring');
         }
     
-
-        Base::create([
-            'user_id' => $request->user_id,
-            'type_id' => $request->type_id,
-            'client_id' => $request->client_id,
-            'import' => $request->sale,
-            'status' => $request->status ?? 1,
-        ]);
-
-        Base::create([
-            'user_id' => $request->client_id,
-            'type_id' => $request->type_id,
-            'client_id' => $request->user_id,
-            'export' => $request->sale,
-            'status' => $request->status ?? 1,
-        ]);
-
+        foreach ($request->type_id as $key => $typeId) {
+            $token = Str::random(60);
+            Base::create([
+                'user_id' => $request->user_id,
+                'type_id' => $typeId,
+                'client_id' => $request->client_id,
+                'import' => $request->sale[$key],
+                'status' => $request->status ?? 3,
+                'token' => $token,
+            ]);
     
+            Base::create([
+                'user_id' => $request->client_id,
+                'type_id' => $typeId,
+                'client_id' => $request->user_id,
+                'export' => $request->sale[$key],
+                'status' => $request->status ?? 3,
+                'token' => $token,
+            ]);
+        }
 
         return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
     }
@@ -94,16 +98,18 @@ class ImportExportController extends Controller
             'user_id' => 'required|exists:users,id',
             'type_id' => 'required|exists:types,id',
             'client_id' => 'required|exists:users,id',
-            'sale' => 'required|numeric',
+            'sale' => 'required|array',
         ]);
-        
-        Base::create([
-            'user_id' => $request->user_id,
-            'type_id' => $request->type_id,
-            'client_id' => $request->user_id,
-            'import' => $request->sale,
-            'status' => $request->status ?? 3,
-        ]);
+
+        foreach ($request->type_id as $key => $typeId) {
+            Base::create([
+                'user_id' => $request->user_id,
+                'type_id' => $typeId,
+                'client_id' => $request->client_id,
+                'import' => $request->sale[$key], // Use the same key to access the corresponding sale value
+                'status' => $request->status ?? 3,
+            ]);
+        }
         
         return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
     }

@@ -42,17 +42,19 @@
                       @foreach ($orders as $order)
                         <li class="list-group-item border-0 d-md-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                           <div class="d-flex flex-column">
-                              <h6 class="mb-3 text-sm">{{ $order->area}}, {{ $order->address }}</h6>
+                              <h6 class="mb-3 text-sm"><span class="fw-bold">№ {{ $order->id }}</span> {{ $order->area}}, {{ $order->address }}</h6>
                               <span class="mb-2 text-xs">Buyurtmachi: <span class="text-dark font-weight-bold ms-sm-2">{{ $order->user->name }}</span></span>
                               <span class="mb-2 text-xs">Buyurtma turi: <span class="text-dark ms-sm-2 font-weight-bold">{{ $order->category->name }}</span></span>
                               <span class="mb-2 text-xs">Vazni: <span class="text-dark ms-sm-2 font-weight-bold">{{ $order->weight }} kg</span></span>
+                              <a class=" px-2 text-sm mb-1 shadow-none bg-secondary text-light rounded" href="tel:{{ $order->user->phone_number }}"> Telefon: {{ $order->user->phone_number }}</a>
+
                               <span class="text-xs">{{ $order->created_at }}</span>
                           </div>
                           <div class="ms-auto text-end">
                            
                             @can('admin')
                               @if ($order->status == 3)   
-                                <div class="btn-group">
+                                <div class="btn-group  mt-3">
                                   <form method="POST" action="{{ route('order.reject', $order) }}">
                                     @csrf
                                     <input type="hidden" value="{{ auth()->user()->name }}" name="edited">
@@ -61,7 +63,7 @@
                                   <form method="POST" action="{{ route('order.accept', $order) }}">
                                     @csrf
                                     <input type="hidden" name="edited" value="{{ auth()->user()->name }}">
-                                    <button type="submit" class="btn btn-sm btn-success shadow-none m-1">Qabul qilish</button>
+                                    <button type="submit" class="btn btn-sm p-2 btn-success shadow-none m-1">Qabul qilish</button>
                                   </form>
                                 </div>  
                               @endif
@@ -79,7 +81,30 @@
                               @endif
                             @endcannot               
                             <br>
-                            <a class="btn btn-link text-light px-5 mt-3 mb-0 shadow-none bg-secondary" href="tel:{{ $order->user->phone_number }}">{{ $order->user->phone_number }}</a>
+                            @if ($order->attachment == null && $order->status != 2)
+                              @can('admin')
+                                  <form id="attachOrderForm" action="{{ route('order.attach', ['id' => $order->id]) }}" method="POST">
+                                      @method('PUT')
+                                      @csrf
+                                      <input type="hidden" value="1" name="status">
+                                      <select id="attachmentSelect" name="attachment" class="form-select form-select-sm mt-3" aria-label="Default select example">
+                                          <option disabled selected>Agent biriktirish</option>
+                                          @foreach ($users->where('role_id', 3) as $agent)
+                                              <option value="{{ $agent->id }}">{{ $agent->name }}</option>                                  
+                                          @endforeach
+                                      </select>
+                                      <input type="hidden" name="status" value="1">
+                                  </form>
+                              @endcan
+                          @else
+                              <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? \App\Models\User::find($order->attachment)?->name : 'No User Found' }}">
+                          @endif
+
+                          <script>
+                              document.getElementById('attachmentSelect').addEventListener('change', function() {
+                                  document.getElementById('attachOrderForm').submit();
+                              });
+                          </script>
                           </div>
                         </li>
                       @endforeach

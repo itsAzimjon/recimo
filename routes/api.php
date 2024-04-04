@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\OrderApiController;
 use App\Http\Controllers\Api\TypeApiController;
+use App\Http\Controllers\Api\WalletApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth', [AuthApiController::class, 'auth']);
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
+
 Route::get('area', [TypeApiController::class, 'area']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserApiController::class, 'index']);
+    Route::get('wallet', [WalletApiController::class, 'index']);
     Route::put('/user-edit/{id}', [UserApiController::class, 'update']);
     Route::get('agents', [UserApiController::class, 'agents']);
     Route::get('orders', [OrderApiController::class, 'index']);

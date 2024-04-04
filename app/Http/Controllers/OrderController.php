@@ -27,10 +27,7 @@ class OrderController extends Controller
         ]);
         
         if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+            return back()->withErrors($validator)->withInput();}
         
         $order = Order::create([
             'user_id' => $request->user_id,
@@ -44,6 +41,18 @@ class OrderController extends Controller
         OrderCreated::dispatch($order);
 
         return redirect()->back();
+    }
+
+    public function order_attach(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $order->update([
+            'status' => $request->status,
+            'attachment' => $request->attachment,
+        ]);
+
+        return back();
     }
 
     public function accept(Order $order, Request $request)

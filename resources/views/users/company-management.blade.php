@@ -65,7 +65,7 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     @if ($user->role_id == 2) 
-                                    <tr>
+                                    <tr class="{{ $user->active == 2 ? 'opacity-5' : '' }}">
                                         <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">{{$user->id}}</p>
                                         </td>

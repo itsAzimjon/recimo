@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Base;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class OrderApiController extends Controller
@@ -32,18 +34,47 @@ class OrderApiController extends Controller
             'address' => auth()->user()->address,
             'category_id' => $request->category_id,
             'weight' => $request->weight,
-            'price' => $request->price ?? 3
+            'attachment' => $request->attachment ?? null,
+            'status' => $request->status ?? 3,
+            'price' => $request->price ?? 1
         ]);
-          
+
+        if($request->attachment != null){
+            $order->update([
+                'status' => 1,
+            ]);
+        }
+        
+        $attachment = $request->attachment ?? 1;
+        $user = User::where('id', $attachment)->first();
+        $category = $order->category->name;
+        $address = $order->user->area->name . $order->user->address;
+
+        $url = 'https://send.smsxabar.uz/broker-api/send';
+        $username = 'ekosfera';
+        $password = '!1(|iV?2Cg%7';
+
+        $phone = $user->phone_number;
+        $payload = [
+            "messages" => [
+                [
+                    "recipient" => $phone,
+                    "message-id" => "abc000000001",
+                    "sms" => [
+                        "originator" => "3700",
+                        "content" => [
+                            "text" => "Sizning shaxsiz kabenitingizga buyurtma keldi.\r\nManzil: $address \r\nTur: $category \r\nVazn: $order->weight"
+                            ]
+                    ]
+                ]
+            ]
+        ];
+        Http::withBasicAuth($username, $password)->post($url, $payload);       
+
     
         OrderCreated::dispatch($order);
     
         return response()->json(['message' => 'Order created successfully'], 201);
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)

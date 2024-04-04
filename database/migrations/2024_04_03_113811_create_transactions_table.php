@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('region_id')->constrained()->onDelete('cascade');
-            $table->text('name')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('client_id')->nullable();
+            $table->bigInteger('amount');
+            $table->integer('in_out')->nullable();
+            $table->string('method');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('transactions');
     }
 }

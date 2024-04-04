@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasTable extends Migration
+class CreateWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('region_id')->constrained()->onDelete('cascade');
-            $table->text('name')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('money')->default(0);
+            $table->string('wallet_number')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('wallets');
     }
 }

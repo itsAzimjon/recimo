@@ -63,7 +63,7 @@
                             <tbody>
                                 @foreach ($users as $user)    
                                     @if ($user->role_id == 5) 
-                                    <tr>
+                                    <tr class="{{ $user->active == 2 ? 'opacity-5' : '' }}">
                                         <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">{{$user->id}}</p>
                                             </td>
@@ -88,15 +88,14 @@
                                             <td class="text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ ($user->created_at->format('m/d/Y')) }}</span>
                                             </td>
-                                            <td class="d-flex justify-content-center align-items-center">
+                                            <td class="justify-content-center align-items-center">
                                                 <form class="col-1 mx-2 p-0" action="{{ route('user.destroy', $user->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="border mt-4 border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
+                                                    <button type="submit" class="border border-white bg-white btn-lg shadow-none p-0" onclick="return confirm('{{ $user->id }} O‘chirishni tasdiqlaysizmi?')">
                                                         <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                     </button>
                                                 </form>
-                                                
                                             </td>
                                         </tr>
                                         @endif

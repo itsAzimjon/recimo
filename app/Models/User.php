@@ -21,6 +21,7 @@ class User extends Authenticatable
         'inn',
         'prize',
         'active',
+        'commission',
         'phone_number',
         'password',
         'remember_token',
@@ -43,8 +44,16 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+    
     public function contact_us(){
         return $this->hasMany(Order::class);
+    }
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
     }
     
     public function types(){

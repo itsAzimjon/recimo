@@ -15,12 +15,12 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = [
-            ['name' => 'Пластик'],
-            ['name' => 'Металлом'],
-            ['name' => 'Макалатура'],
-            ['name' => 'Шиша'],
-            ['name' => 'Ёгоч'],
-            ['name' => 'Газламалар']
+            ['name' => 'Polimer'],
+            ['name' => 'Metallom'],
+            ['name' => 'Maklatura'],
+            ['name' => 'Shisha'],
+            ['name' => 'Yog‘och'],
+            ['name' => 'Gazlama']
         ];
 
         Category::insert($categories);

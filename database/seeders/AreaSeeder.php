@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Area;
+use App\Models\Region;
 use Illuminate\Database\Seeder;
 
 class AreaSeeder extends Seeder
@@ -14,10 +15,10 @@ class AreaSeeder extends Seeder
      */
     public function run()
     {
-        $areas = [
-            ['name' => 'Jizzax Shaxri']
-        ];
-
-        Area::insert($areas);
-    }
+        $region = ['name' => 'Jizzax'];
+        $regionId = Region::insertGetId($region);
+    
+        $area = [['region_id' => $regionId]];
+        Area::insert($area);
+    }    
 }

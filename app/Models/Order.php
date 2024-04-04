@@ -17,7 +17,8 @@ class Order extends Model
         'area',
         'address',
         'status',
-        'edited_by'
+        'edited_by',
+        'attachment'
     ];
 
     public function user(){
