@@ -317,7 +317,7 @@ $user = auth()->user();
                                     @endif
                                 </h4>
                                 <div class="progress w-75">
-                                    <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90"
+                                    <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="90"
                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -355,7 +355,7 @@ $user = auth()->user();
                                     @endif
                                 </h4>
                                 <div class="progress w-75">
-                                    <div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60"
+                                    <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="60"
                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@ $user = auth()->user();
                                     @endif
                                 </h4>
                                 <div class="progress w-75">
-                                    <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30"
+                                    <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="30"
                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -416,7 +416,7 @@ $user = auth()->user();
                                     @endif
                                 </h4>
                                 <div class="progress w-75">
-                                    <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90"
+                                    <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="90"
                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -436,7 +436,7 @@ $user = auth()->user();
                                     @endif
                                 </h4>
                                 <div class="progress w-75">
-                                    <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30"
+                                    <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="30"
                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
