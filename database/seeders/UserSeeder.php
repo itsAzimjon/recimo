@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'address' => 'Jizzax',
             'passport' => 'AD 3432423',
             'inn' => '5435674623',
-            'phone_number' => '913112233',
+            'phone_number' => '911993838',
             'password' => Hash::make('1'),
             'remember_token' => Str::random(60),
         ]);
