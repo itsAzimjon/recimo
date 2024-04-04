@@ -20,6 +20,7 @@ class CreateBasesTable extends Migration
             $table->integer('client_id')->nullable();
             $table->string('import')->nullable();
             $table->string('export')->nullable();
+            $table->string('token')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });

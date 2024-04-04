@@ -82,12 +82,14 @@ class ImportExportController extends Controller
             'sale' => 'required|numeric',
         ]);
 
+        $token = Str::random(60);
         Base::create([
             'user_id' => $request->user_id,
             'type_id' => $request->type_id,
             'client_id' => 8,
             'import' => $request->sale,
             'status' => $request->status ?? 1,
+            'token' => $token,
         ]);
         return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');
     }
@@ -102,12 +104,14 @@ class ImportExportController extends Controller
         ]);
 
         foreach ($request->type_id as $key => $typeId) {
+            $token = Str::random(60);
             Base::create([
                 'user_id' => $request->user_id,
                 'type_id' => $typeId,
                 'client_id' => $request->client_id,
-                'import' => $request->sale[$key], // Use the same key to access the corresponding sale value
+                'import' => $request->sale[$key], 
                 'status' => $request->status ?? 3,
+                'token' => $token,
             ]);
         }
         

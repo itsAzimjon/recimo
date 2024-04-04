@@ -24,9 +24,9 @@
                       @error('phone_number')
                           <p class="text-danger text-xs p-0 m-0">{{ $message }}</p>
                       @enderror
-                      <label class="mt-5">Parol</label> 
+                      <label class="mt-5">Tasdiqlash kodi</label> 
                       <div class="mb-3">
-                          <input type="password" class="form-control" name="password" id="password" placeholder="Parol"  aria-label="Password" aria-describedby="password-addon">
+                          <input type="number" class="form-control" name="password" id="password" placeholder="####"  aria-label="Password" aria-describedby="password-addon">
                           @error('password')
                               <p class="text-danger text-xs mt-2">{{ $message }}</p>
                           @enderror
