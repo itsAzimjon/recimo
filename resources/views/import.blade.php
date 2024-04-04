@@ -17,7 +17,7 @@
                         <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                             <div>
                                 <div class="row d-flex justify-content-md-end">
-                                    @if ($user->wallet->money > -01)
+                                    @if ($user->wallet->money > 500000)
                                         @cannot('agent')
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" class=" btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
                                                 Qabul

@@ -18,7 +18,7 @@ class AreaSeeder extends Seeder
         $region = ['name' => 'Jizzax'];
         $regionId = Region::insertGetId($region);
     
-        $area = [['region_id' => $regionId]];
+        $area = [['region_id' => $regionId, 'name' => 'Jizzax']];
         Area::insert($area);
     }    
 }
