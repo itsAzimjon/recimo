@@ -57,7 +57,7 @@
         </div>
     </div>
     @can('admin')
-        <div class="mt-4 bg-white rounded">
+        <div class="mt-4 bg-white rounded-5">
             <div class="row p-4">
                 <div class="col-md-6">
                     <form action="{{ route('region.store')}}" method="POST">
@@ -92,7 +92,7 @@
                 <div class="mb-3 col-md-6">
                     <label for="exampleFormControlInput1" class="form-label">Viloyatlar ro‘yxati</label>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle col-md-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu">
                             @foreach ($regions as $region)
                             <li>
@@ -145,7 +145,7 @@
                 <div class="mb-3 col-md-6">
                     <label for="exampleFormControlInput1" class="form-label">Tumanlar ro‘yxati</label>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle col-md-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu">
                             @foreach ($areas as $area)
                             <li>

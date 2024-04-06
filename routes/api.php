@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\OrderApiController;
+use App\Http\Controllers\Api\RegionApiController;
 use App\Http\Controllers\Api\TypeApiController;
 use App\Http\Controllers\Api\WalletApiController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
 
 Route::get('area', [TypeApiController::class, 'area']);
+Route::get('region', [RegionApiController::class, 'region']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserApiController::class, 'index']);
