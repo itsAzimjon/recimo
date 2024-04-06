@@ -47,7 +47,6 @@ class OrderApiController extends Controller
         
         $attachment = $request->attachment ?? 1;
         $user = User::where('id', $attachment)->first();
-        $category = $order->category->name;
         $address = $order->user->area->name . $order->user->address;
 
         $url = 'https://send.smsxabar.uz/broker-api/send';
@@ -63,7 +62,7 @@ class OrderApiController extends Controller
                     "sms" => [
                         "originator" => "3700",
                         "content" => [
-                            "text" => "Sizning shaxsiz kabenitingizga buyurtma keldi.\r\nManzil: $address \r\nTur: $category \r\nVazn: $order->weight"
+                            "text" => "Sizning shaxsiz kabenitingizga buyurtma keldi.\r\nManzil: $address"
                             ]
                     ]
                 ]

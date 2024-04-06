@@ -44,10 +44,22 @@
                           <div class="d-flex flex-column">
                               <h6 class="mb-3 text-sm"><span class="fw-bold">№ {{ $order->id }}</span> {{ $order->area}}, {{ $order->address }}</h6>
                               <span class="mb-2 text-xs">Buyurtmachi: <span class="text-dark font-weight-bold ms-sm-2">{{ $order->user->name }}</span></span>
-                              <span class="mb-2 text-xs">Buyurtma turi: <span class="text-dark ms-sm-2 font-weight-bold">{{ $order->category->name }}</span></span>
-                              <span class="mb-2 text-xs">Vazni: <span class="text-dark ms-sm-2 font-weight-bold">{{ $order->weight }} kg</span></span>
-                              <a class=" px-2 text-sm mb-1 shadow-none bg-secondary text-light rounded" href="tel:{{ $order->user->phone_number }}"> Telefon: {{ $order->user->phone_number }}</a>
-
+                              <span class="mb-2 text-xs">Buyurtma turi: <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
+                              @php
+                                  $categoryIds = explode(',', $order->category_id);
+                                  $weights = explode(',', $order->weight);
+                              @endphp
+                              <div class="border">
+                                @foreach ($categoryIds as $key => $category)
+                                    <p class="mb-2 text-xs">
+                                        <span class="text-dark ms-sm-2 font-weight-bold">{{ $category }}</span>
+                                        - {{ $weights[$key] }}kg
+                                    </p>
+                                @endforeach
+                              </div>
+                              <a class="mt-2 px-2 text-sm mb-1 shadow-none bg-secondary text-light rounded" href="tel:{{ $order->user->phone_number }}"> Telefon: {{ $order->user->phone_number }}</a>
+                          
+                          
                               <span class="text-xs">{{ $order->created_at }}</span>
                           </div>
                           <div class="ms-auto text-end">
@@ -97,7 +109,9 @@
                                   </form>
                               @endcan
                           @else
-                            <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? (\App\Models\User::find($order->attachment) ? \App\Models\User::find($order->attachment)->name : 'No User Found') : 'No Attachment' }}">
+                            @if ($order)
+                              <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? \App\Models\User::find($order->attachment)?->name : 'No User Found' }}">
+                            @endif
                           @endif
 
                           <script>
