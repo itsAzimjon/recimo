@@ -153,6 +153,19 @@ class UserController extends Controller
             $path = $request->file('photo')->store('profile-photo');
         }
 
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'nullable|string|max:555',
+            'area_id' => 'required|exists:areas,id',
+            'passport' => 'required|string|max:55',
+            'inn' => 'nullable|string|max:55',
+            'commission' => 'required|regex:/^\d*(\.\d+)?$/'
+        ]);
+        
+        if ($validator->fails()) {return back()->withErrors($validator)->withInput();}
+
         
         $data = [
             'name' => $request->name,

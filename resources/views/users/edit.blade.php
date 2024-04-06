@@ -244,7 +244,7 @@
                                     <div class="form-group">
                                         <label for="user-commission" class="form-control-label">Komissiya foizi</label>
                                         <div class="@error('commission')border border-danger rounded-3 @enderror">
-                                            <input class="form-control" type="number" value="{{ $user->commission }}" 
+                                            <input class="form-control" type="text" value="{{ $user->commission }}" 
                                                 id="user-commission" name="commission">
                                             @error('commission')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
