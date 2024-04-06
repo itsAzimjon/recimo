@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -37,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
     
 	Route::resources([
 		'user-profile' => InfoUserController::class,
+		'region' => RegionController::class,
+		'area' => AreaController::class,
 		'sale' => ImportExportController::class,
 	]);
 

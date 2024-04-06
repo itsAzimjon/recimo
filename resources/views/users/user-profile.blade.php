@@ -56,6 +56,153 @@
             </div>
         </div>
     </div>
+    @can('admin')
+        <div class="mt-4 bg-white rounded">
+            <div class="row p-4">
+                <div class="col-md-6">
+                    <form action="{{ route('region.store')}}" method="POST">
+                        @csrf
+                        <label for="exampleFormControlInput1" class="form-label">Viloyat qo‘shish</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="name" class="form-control " aria-label="Text input with checkbox">
+                            <div class="input-group-text  btn-secondary p-0">
+                                <input class="form-check-input mt-0  btn-secondary text-white pt-0 px-4" type="submit" value="+" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                <div class="col-md-6">
+                    <form action="{{ route('area.store')}}" method="POST">
+                        @csrf
+                        <label for="exampleFormControlInput1" class="form-label">Tuman qo‘shish</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="name" class="form-control " aria-label="Text input with checkbox">
+                            <select class="form-select" name="region_id" aria-label="Default select example">
+                                <option selected>Viloyatni tanlash</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="input-group-text  btn-secondary p-0">
+                                <input class="form-check-input mt-0  btn-secondary text-white pt-0 px-4" type="submit" value="+" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="exampleFormControlInput1" class="form-label">Viloyatlar ro‘yxati</label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle col-md-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu">
+                            @foreach ($regions as $region)
+                            <li>
+                                <a class="dropdown-item p-2 d-flex" href="#">
+                                    <span class="col-6 px-3 py-2 m-0">{{ $region->name }}</span>
+                                    <button type="button" class="float-end btn btn-sm mt-2 btn-outline-warning p-1 px-3 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $region->id }}">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <form action="{{ route('region.destroy', ['region'=>$region->id])}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="float-end btn btn-sm mt-2 btn-outline-danger p-1 px-3 mx-2 m-0">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    
+                    <!-- Modals -->
+                    @foreach ($regions as $region)
+                    <form action="{{ route('region.update', ['region'=>$region->id])}}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="modal fade" id="exampleModal{{ $region->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $region->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel{{ $region->id }}">O'zgartirish</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="name" value="{{ $region->name }}" aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    @endforeach
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="exampleFormControlInput1" class="form-label">Tumanlar ro‘yxati</label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle col-md-12" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu">
+                            @foreach ($areas as $area)
+                            <li>
+                                <a class="dropdown-item p-2 d-flex" href="#">
+                                    <span class="col-6 px-3 py-2 m-0">{{ $area->name }}</span>
+                                    <button type="button" class="float-end btn btn-sm mt-2 btn-outline-warning p-1 px-3 m-0" data-bs-toggle="modal" data-bs-target="#area{{ $area->id }}">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <form action="{{ route('area.destroy', ['area'=>$area->id])}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="float-end btn btn-sm mt-2 btn-outline-danger p-1 px-3 mx-2 m-0">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    
+                    <!-- Modals -->
+                    @foreach ($areas as $area)
+                    <form action="{{ route('area.update', ['area'=>$area->id])}}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="modal fade" id="area{{ $area->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $area->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel{{ $area->id }}">O'zgartirish</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="name" value="{{ $area->name }}" aria-label="Text input with checkbox">
+                                        </div>
+                                        <select class="form-select" name="region_id" aria-label="Default select example">
+                                            <option selected>Viloyatni tanlash</option>
+                                            @foreach ($regions as $region)
+                                                <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endcan
     
     <div class="py-4">
         <div class="tab-content">

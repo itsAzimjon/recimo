@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\Region;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class InfoUserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.user-profile')->with(['user' => $user, 'types' => Type::all(), 'areas' => Area::all()]);
+        return view('users.user-profile')->with(['user' => $user, 'types' => Type::all(), 'regions' => Region::all(), 'areas' => Area::all()]);
     }   
 
     public function update(Request $request, $id)

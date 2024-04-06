@@ -142,21 +142,21 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-md-3 btn bg-gradient-primary btn-sm justify-content-end" type="button">+&nbsp; Qo'shish</a>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hamkor yaratish</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Hamkor yaratish</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <x-create :types="$types" :areas="$areas">
+                                    <x-slot name="fio">F.I.O</x-slot>
+                                    <x-slot name="role_id">3</x-slot>
+                                </x-create>
+                                
+                            </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <x-create :types="$types" :areas="$areas">
-                                <x-slot name="fio">F.I.O</x-slot>
-                                <x-slot name="role_id">3</x-slot>
-                            </x-create>
-                            
-                        </div>
-                        </div>
-                    </div>
                     </div>       
                 </div>        
             @endcan
