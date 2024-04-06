@@ -44,7 +44,6 @@
                           <div class="d-flex flex-column">
                               <h6 class="mb-3 text-sm"><span class="fw-bold">№ {{ $order->id }}</span> {{ $order->area}}, {{ $order->address }}</h6>
                               <span class="mb-2 text-xs">Buyurtmachi: <span class="text-dark font-weight-bold ms-sm-2">{{ $order->user->name }}</span></span>
-                              <span class="mb-2 text-xs">Buyurtma turi: <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
                               @php
                                   $categoryIds = explode(',', $order->category_id);
                                   $weights = explode(',', $order->weight);
@@ -52,8 +51,8 @@
                               <div class="border">
                                 @foreach ($categoryIds as $key => $category)
                                     <p class="mb-2 text-xs">
-                                        <span class="text-dark ms-sm-2 font-weight-bold">{{ $category }}</span>
-                                        - {{ $weights[$key] }}kg
+                                        <span class="text-dark ms-sm-2 bg-light font-weight-bold">{{ $category }}
+                                        - {{ $weights[$key] }}kg</span>
                                     </p>
                                 @endforeach
                               </div>
@@ -113,17 +112,12 @@
                             <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? (\App\Models\User::find($order->attachment) ? \App\Models\User::find($order->attachment)->name : 'No User Found') : 'No Attachment Found' }}">
                             @endif
                           @endif
-
-                          <script>
-                              document.getElementById('attachmentSelect').addEventListener('change', function() {
-                                  document.getElementById('attachOrderForm').submit();
-                              });
-                          </script>
                           </div>
                         </li>
                       @endforeach
                     </ul>
                   </div>
+              </div>
             </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ class SessionsController extends Controller
                     "sms" => [
                         "originator" => "3700",
                         "content" => [
-                            "text" => "Ro‘yxatsan o‘tish kodi: $pass"
+                            "text" => "Ro‘yxatdan o‘tish kodi: $pass"
                         ]
                     ]
                 ]
@@ -86,7 +86,7 @@ class SessionsController extends Controller
                 return back()->withInput()->withErrors(['phone_number' => 'Profil faol emas']);
             }
         } else {
-            return back()->withInput()->withErrors(['phone_number' => 'Foydalanuvchhi topilmadi']);
+            return back()->withInput()->withErrors(['phone_number' => 'Foydalanuvchi topilmadi']);
         }
     }
     

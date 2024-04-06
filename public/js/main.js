@@ -194,3 +194,8 @@ document.getElementById('otpPhoneNumber').value = this.value;
 document.getElementById('sendOtpBtn').addEventListener('click', function() {
 document.getElementById('sendOtpForm').submit();
 });
+
+//order name attachment
+document.getElementById('attachmentSelect').addEventListener('change', function() {
+    document.getElementById('attachOrderForm').submit();
+});
