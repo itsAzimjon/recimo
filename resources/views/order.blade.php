@@ -110,7 +110,7 @@
                               @endcan
                           @else
                             @if ($order)
-                              <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? \App\Models\User::find($order->attachment)?->name : 'No User Found' }}">
+                            <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? (\App\Models\User::find($order->attachment) ? \App\Models\User::find($order->attachment)->name : 'No User Found') : 'No Attachment Found' }}">
                             @endif
                           @endif
 
