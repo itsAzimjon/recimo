@@ -9,6 +9,12 @@ class AreaController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'region_id' => 'required|exists:regions,id',
+            'name' => 'required',
+        ]);
+        
+
         Area::create([
             'region_id'=> $request->region_id,
             'name'=>$request->name,
@@ -19,6 +25,11 @@ class AreaController extends Controller
 
     public function update(Request $request, Area $area)
     {
+        $request->validate([
+            'region_id' => 'required|exists:regions,id',
+             'name' => 'required',
+        ]);
+
         $area->update([
             'region_id'=> $request->region_id,
             'name'=> $request->name,
