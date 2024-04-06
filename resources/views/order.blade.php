@@ -97,7 +97,9 @@
                                   </form>
                               @endcan
                           @else
+                            @if ($order)
                               <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? \App\Models\User::find($order->attachment)?->name : 'No User Found' }}">
+                            @endif
                           @endif
 
                           <script>
