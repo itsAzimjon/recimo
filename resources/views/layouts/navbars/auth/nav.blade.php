@@ -17,7 +17,7 @@
             </div>
             <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-                <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0">
+                <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0" onclick="return confirm('Profildan chiqishni istaysizmi')">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="15" height="15" style="margin-top: -5px" viewBox="0 0 256 256" xml:space="preserve">
                         <defs>
                         </defs>
