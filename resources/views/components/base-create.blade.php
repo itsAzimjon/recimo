@@ -5,18 +5,18 @@
             <div class="form-group">
                 <label for="client_id">Mijozni tanlang</label>
                 <input type="text" id="client_search" class="form-control form-control-sm" placeholder="Mijozni izlash...">
-                <select name="client_id" class="form-select" aria-label="Default select example" required>
+                <select name="client_id" id="client_select" class="form-select" aria-label="Default select example" required>
                     <option selected disabled>Mijoz</option>
                     @foreach ($users as $user)
                         @if ($user->role_id == 5 && auth()->user()->can('agent')) 
                             <option value="{{ $user->id }}">{{ $user->phone_number }}</option>
                         @endif
-                        @if ($user->role_id != 5 && $user->id != auth()->user()->id) 
+                        @if ($user->id != auth()->user()->id) 
                             <option value="{{ $user->id }}">{{ $user->phone_number }}</option>
                         @endif
                     @endforeach
                 </select>
-            </div>
+            </div>                            
             <div class="form-group">
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
             </div>
@@ -39,7 +39,6 @@
                         <input required type="number" name="sale[]" class="form-control sale" data-price="">
                     </div>
                     <small class="text-muted">Narxi: <span class="calculated-price">0.00</span></div>
-                    
                 </div>
             </div>
             <div class="row mb-3 justify-content-between">
@@ -58,9 +57,29 @@
             </div>
             <div>Umumiy narx: <span id="total-price">0</span></div>
             <input type="hidden" name="total" id="total-price-input" value="0">
-            
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('client_search');
+        const select = document.getElementById('client_select');
+        
+        input.addEventListener('input', function () {
+            const searchText = input.value.trim().toLowerCase();
+            const options = select.getElementsByTagName('option');
+            
+            for (let option of options) {
+                if (option.textContent.toLowerCase().includes(searchText)) {
+                    option.selected = true;
+                    return;
+                }
+            }
+            
+            // If no matching option found, deselect any selected option
+            select.selectedIndex = -1;
+        });
+    });
+</script>
             
   

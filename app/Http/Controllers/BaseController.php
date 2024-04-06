@@ -32,16 +32,17 @@ class BaseController extends Controller
         $status = $request->status;
 
         Base::where('token', $token)->update(['status' => $status]);
-
-        $user = User::findOrFail($request->ex_user);
-        $per = $user->commission;
-        $cost = $request->cost * $per;
-        $sum = $user->wallet->money - $cost;
-        $user->wallet->update(['money' => $sum]);
-        
-        $admin = User::find(1);
-        $commis = $user->wallet->money + $cost;
-        $admin->wallet->update(['money' => $commis]);
+        if($status == 1){
+            $user = User::findOrFail($request->ex_user);
+            $per = $user->commission;
+            $cost = $request->cost * $per;
+            $sum = $user->wallet->money - $cost;
+            $user->wallet->update(['money' => $sum]);
+            
+            $admin = User::find(1);
+            $commis = $user->wallet->money + $cost;
+            $admin->wallet->update(['money' => $commis]);
+        }
 
         return back();
     }

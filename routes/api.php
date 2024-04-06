@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user-edit/{id}', [UserApiController::class, 'update']);
     Route::get('agents', [UserApiController::class, 'agents']);
     Route::get('orders', [OrderApiController::class, 'index']);
+    Route::get('exports', [OrderApiController::class, 'export']);
     Route::put('/base-status/{id}', [OrderApiController::class, 'update']);
     Route::post('order-store', [OrderApiController::class, 'store']);
     Route::get('types', [TypeApiController::class, 'index']);

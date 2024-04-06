@@ -12,7 +12,7 @@
                         <h6>Buyurtmalar</h6>
                     </div>
                 </div>
-                @can('factory')
+                {{-- @can('factory')
                   <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                       <div>
                           <div class="row d-flex justify-content-md-end">
@@ -36,7 +36,7 @@
                           </div>
                       </div>
                   </div>
-                  @endcan
+                  @endcan --}}
                   <div class="card-body pt-4 p-3">
                     <ul class="list-group">
                       @foreach ($orders as $order)

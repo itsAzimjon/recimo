@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ExportResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Base;
 use App\Models\Order;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -19,9 +21,19 @@ class OrderApiController extends Controller
         $userId = auth()->id();
 
         $orders = Order::where('user_id', $userId)->latest()->get();
-        $baseRecords = Base::where('client_id', $userId)->latest()->get();
-        $combinedResults = $orders->merge($baseRecords)->sortByDesc('created_at');
+        $combinedResults = $orders->sortByDesc('created_at');
         $combinedResultsResource = OrderResource::collection($combinedResults);
+
+        return $combinedResultsResource;
+    }
+
+    public function export()
+    {
+        $userId = auth()->id();
+
+        $baseRecords = Base::where('client_id', $userId)->latest()->get();
+        $combinedResults = $baseRecords->sortByDesc('created_at');
+        $combinedResultsResource = ExportResource::collection($combinedResults);
 
         return $combinedResultsResource;
     }
@@ -79,12 +91,28 @@ class OrderApiController extends Controller
     public function update(Request $request, $id)
     {
         $base = Base::find($id);
-
+        $status = $request->input('status');
+        if($status == 1 && $base->status == 3){
+            $type_id = $base->type_id;
+            $type = Type::find($type_id);
+            $product_price = $base->import * $type->price;
+    
+            $user = $base->user;
+            $per = $user->commission;
+            $cost = $product_price * $per;
+            $sum = $user->wallet->money - $cost;
+            $user->wallet->update(['money' => $sum]);
+            
+            $admin = User::find(1);
+            $commis = $admin->wallet->money + $cost;
+            $admin->wallet->update(['money' => $commis]);
+        }
+        
         $base->update([
-            'status' => $request->input('status'),
+            'status' => $status,
         ]);
 
-        return response()->json(['message' => 'Resource updated successfully'], 200);
+        return response()->json(['message' => "Buyurtma tasdiqlandi"], 200);
     }
 
 

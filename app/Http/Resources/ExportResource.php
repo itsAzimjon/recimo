@@ -6,7 +6,7 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class ExportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,19 +17,18 @@ class OrderResource extends JsonResource
     public function toArray($request)
     {
         $typeName = Type::find($this->type_id)->name ?? null;
-        $agentName = User::find($this->attachment)->name ?? null;
+        $price = Type::find($this->type_id)->price * $this->import;
+        $agentName = User::find($this->user_id)->name ?? null;
 
         $resourceArray = [
             'id' => $this->id,
             'created_date' => $this->created_at->format('Y-m-d'),
             'created_time' => $this->created_at->format('H:i'),
+            'price' => $price
         ];
 
         if ($this->status) {
             $resourceArray['status'] = $this->status;
-        }
-        if ($this->category_id) {
-            $resourceArray['category_id'] = $this->category_id;
         }
         if ($this->weight) {
             $resourceArray['kg'] = $this->weight;
@@ -40,10 +39,13 @@ class OrderResource extends JsonResource
         if ($agentName) {
             $resourceArray['agent_name'] = $agentName;
         }
+        if ($this->category) {
+            $resourceArray['type'] = $this->category->name;
+        }
         if ($this->import) {
             $resourceArray['kg'] = $this->import;
         }
-        
+       
         return $resourceArray;
     }
 }
