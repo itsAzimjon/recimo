@@ -125,9 +125,9 @@
   </div>
  <script>
   //order name attachment
-document.getElementById('attachmentSelect').addEventListener('change', function() {
-    document.getElementById('attachOrderForm').submit();
-});
+  document.getElementById('attachmentSelect').addEventListener('change', function() {
+      document.getElementById('attachOrderForm').submit();
+  });
 </script>
 @endsection
 
