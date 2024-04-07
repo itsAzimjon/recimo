@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class WalletController extends Controller
 {
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::findOrFail($id);
         return view('wallet', compact('user'));
     }
 }

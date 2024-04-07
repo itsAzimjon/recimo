@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user-profile/{id}/edit', [InfoUserController::class, 'edit'])->name('user-profile.edit')->middleware('can:only-auth,id');
 	Route::get('/users/search', [UserController::class, 'search'])->name('search.results');
 
-	Route::get('/wallet/{user}', [WalletController::class, 'show'])->name('wallet.show');
+	Route::get('/wallet/{id}', [WalletController::class, 'show'])->name('wallet.show')->middleware('can:only-auth,id');
     
 	Route::resources([
 		'user-profile' => InfoUserController::class,
