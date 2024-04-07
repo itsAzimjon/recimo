@@ -40,7 +40,7 @@ class BaseController extends Controller
             $user->wallet->update(['money' => $sum]);
             
             $admin = User::find(1);
-            $commis = $user->wallet->money + $cost;
+            $commis = $admin->wallet->money + $cost;
             $admin->wallet->update(['money' => $commis]);
         }
 
