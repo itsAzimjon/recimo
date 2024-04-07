@@ -107,11 +107,11 @@
                                       <input type="hidden" name="status" value="1">
                                   </form>
                               @endcan
-                          @else
-                            @if ($order)
-                            <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? (\App\Models\User::find($order->attachment) ? \App\Models\User::find($order->attachment)->name : 'No User Found') : 'No Attachment Found' }}">
+                            @else
+                              @if ($order)
+                                <input type="text" disabled class="form-control form-control-sm mt-3" id="formGroupExampleInput" placeholder="{{ $order->attachment ? (\App\Models\User::find($order->attachment) ? \App\Models\User::find($order->attachment)->name : 'No User Found') : 'No Attachment Found' }}">
+                              @endif
                             @endif
-                          @endif
                           </div>
                         </li>
                       @endforeach
@@ -123,6 +123,11 @@
       </div>
     </div>
   </div>
- 
+ <script>
+  //order name attachment
+document.getElementById('attachmentSelect').addEventListener('change', function() {
+    document.getElementById('attachOrderForm').submit();
+});
+</script>
 @endsection
 

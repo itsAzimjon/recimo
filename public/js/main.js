@@ -195,7 +195,4 @@ document.getElementById('sendOtpBtn').addEventListener('click', function() {
 document.getElementById('sendOtpForm').submit();
 });
 
-//order name attachment
-document.getElementById('attachmentSelect').addEventListener('change', function() {
-    document.getElementById('attachOrderForm').submit();
-});
+
