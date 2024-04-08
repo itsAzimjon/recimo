@@ -16,26 +16,26 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderApiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->id();
-
-        $orders = Order::where('user_id', $userId)->latest()->get();
-        $combinedResults = $orders->sortByDesc('created_at');
-        $combinedResultsResource = OrderResource::collection($combinedResults);
-
-        return $combinedResultsResource;
+    
+        $perPage = $request->has('per_page') ? (int) $request->per_page : 10;
+        $orders = Order::where('user_id', $userId)->latest()->paginate($perPage);    
+        $ordersResource = OrderResource::collection($orders);
+    
+        return $ordersResource;
     }
 
-    public function export()
+    public function export(Request $request)
     {
         $userId = auth()->id();
-
-        $baseRecords = Base::where('client_id', $userId)->latest()->get();
-        $combinedResults = $baseRecords->sortByDesc('created_at');
-        $combinedResultsResource = ExportResource::collection($combinedResults);
-
-        return $combinedResultsResource;
+    
+        $perPage = $request->has('per_page') ? (int) $request->per_page : 10;
+        $baseRecords = Base::where('client_id', $userId)->latest()->paginate($perPage);
+        $baseRecordsResource = ExportResource::collection($baseRecords);
+    
+        return $baseRecordsResource;
     }
 
     public function store(Request $request)
