@@ -29,7 +29,7 @@ class OrderResource extends JsonResource
             $resourceArray['status'] = $this->status;
         }
         if ($this->category_id) {
-            $resourceArray['category_id'] = $this->category_id;
+            $resourceArray['type'] = $this->category_id;
         }
         if ($this->weight) {
             $resourceArray['kg'] = $this->weight;
