@@ -195,4 +195,10 @@ document.getElementById('sendOtpBtn').addEventListener('click', function() {
 document.getElementById('sendOtpForm').submit();
 });
 
-
+ // Show a confirmation dialog using Bootstrap modal for logout button
+ function logout() {
+    var confirmationModal = new bootstrap.Modal(document.getElementById('logoutConfirmationModal'), {
+        keyboard: false
+    });
+    confirmationModal.show();
+}

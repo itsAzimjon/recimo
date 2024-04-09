@@ -17,7 +17,7 @@
             </div>
             <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-                <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0" onclick="return confirm('Profildan chiqishni istaysizmi')">
+                <a href="#" id="logoutBtn" class="nav-link text-body font-weight-bold px-0" onclick="logout()">             
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="15" height="15" style="margin-top: -5px" viewBox="0 0 256 256" xml:space="preserve">
                         <defs>
                         </defs>
@@ -28,6 +28,23 @@
                     </svg>
                     <span class="d-sm-inline d-none">Chiqish</span>
                 </a>
+                <div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="logoutConfirmationModalLabel">Chiqish</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Tizimdan chiqishni istaysizmi!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                                <a href="{{ url('/logout')}}" class="btn btn-sm btn-primary">Tasdiqlash</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
             
             <li class="nav-item px-2 d-flex align-items-center">

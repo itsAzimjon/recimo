@@ -118,7 +118,7 @@ $user = auth()->user();
                         </a>
                     @endcan
                 @else
-                    <a href="{{ route('wallet.show', ['user'=>$user->id])}}" class="btn bg-gradient-secondary btn-sm col-10 mx-2">
+                    <a href="{{ route('wallet.show', ['id'=>$user->id])}}" class="btn bg-gradient-secondary btn-sm col-10 mx-2">
                         Hisobni to‘ldiring
                     </a> 
                 @endif
