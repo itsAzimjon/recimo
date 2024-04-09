@@ -50,6 +50,10 @@ class ImportExportController extends Controller
             return Redirect::back()->withErrors($validator)->withInput()->with('error', 'Xato boshqatdan urinib ko\'ring');
         }
     
+        if($request->money_switch == 1){
+            $card = 1;           
+        }
+        
         foreach ($request->type_id as $key => $typeId) {
             $token = Str::random(60);
             Base::create([
@@ -57,6 +61,7 @@ class ImportExportController extends Controller
                 'type_id' => $typeId,
                 'client_id' => $request->client_id,
                 'import' => $request->sale[$key],
+                'card'  => $card ?? null,
                 'status' => $request->status ?? 3,
                 'token' => $token,
             ]);
@@ -66,6 +71,7 @@ class ImportExportController extends Controller
                 'type_id' => $typeId,
                 'client_id' => $request->user_id,
                 'export' => $request->sale[$key],
+                'card'  => $card ?? null,
                 'status' => $request->status ?? 3,
                 'token' => $token,
             ]);

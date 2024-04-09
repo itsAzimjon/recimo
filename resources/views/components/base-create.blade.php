@@ -40,6 +40,10 @@
                     </div>
                     <small class="text-muted">Narxi: <span class="calculated-price">0.00</span></div>
                 </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="money_switch" value="1" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Hamyon orqali to'lov</label>
+                </div>
             </div>
             <div class="row mb-3 justify-content-between">
                 <div class="col-md-6">

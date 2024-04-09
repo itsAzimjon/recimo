@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\Base;
+use App\Models\Transaction;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,8 +31,9 @@ class BaseController extends Controller
     {
         $token = $request->token;
         $status = $request->status;
-
+        $base = Base::where('token',$token)->first();
         Base::where('token', $token)->update(['status' => $status]);
+
         if($status == 1){
             $user = User::findOrFail($request->ex_user);
             $per = $user->commission;
@@ -42,8 +44,34 @@ class BaseController extends Controller
             $admin = User::find(1);
             $commis = $admin->wallet->money + $cost;
             $admin->wallet->update(['money' => $commis]);
+            
+            if($base->card === 1){
+                $client = User::findOrFail($base->client_id);
+                $client_money = $client->wallet->money + $request->cost;
+                $client->wallet->update(['money' => $client_money]);
+                
+                $agent_money = $user->wallet->money - $request->cost;
+                $user->wallet->update(['money' => $agent_money]);
+
+                Transaction::create([
+                    'user_id' => $user->id,
+                    'client_id' => $client->id,
+                    'amount' => $request->cost,
+                    'method' => 1,
+                    'in_out' => 2
+                ]);
+
+                Transaction::create([
+                    'user_id' => $client->id,
+                    'client_id' => $user->id,
+                    'amount' => $request->cost,
+                    'method' => 1,
+                    'in_out' => 1
+                ]);
+            }
         }
 
+        
         return back();
     }
 }
