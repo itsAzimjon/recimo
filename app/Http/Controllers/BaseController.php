@@ -45,7 +45,7 @@ class BaseController extends Controller
             $commis = $admin->wallet->money + $cost;
             $admin->wallet->update(['money' => $commis]);
             
-            if($base->card === 1){
+            if($base->card == 1){
                 $client = User::findOrFail($base->client_id);
                 $client_money = $client->wallet->money + $request->cost;
                 $client->wallet->update(['money' => $client_money]);

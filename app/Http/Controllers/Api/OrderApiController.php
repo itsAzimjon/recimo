@@ -111,7 +111,7 @@ class OrderApiController extends Controller
                 $commis = $admin->wallet->money + $cost;
                 $admin->wallet->update(['money' => $commis]);
                 
-                if($base->card === 1){
+                if($base->card == 1){
                     $client = User::find($base->client_id);
                     $client_money = $client->wallet->money + $product_price;
                     $client->wallet->update(['money' => $client_money]);
