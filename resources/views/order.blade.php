@@ -45,8 +45,8 @@
                               <h6 class="mb-3 text-sm"><span class="fw-bold">№ {{ $order->id }}</span> {{ $order->area}}, {{ $order->address }}</h6>
                               <span class="mb-2 text-xs">Buyurtmachi: <span class="text-dark font-weight-bold ms-sm-2">{{ $order->user->name }}</span></span>
                               @php
-                                  $categoryIds = explode(',', $order->category_id);
-                                  $weights = explode(',', $order->weight);
+                                  $categoryIds = explode('#', $order->category_id);
+                                  $weights = explode('#', $order->weight);
                               @endphp
                               <div class="border">
                                 @foreach ($categoryIds as $key => $category)
@@ -56,9 +56,7 @@
                                     </p>
                                 @endforeach
                               </div>
-                              <a class="mt-2 px-2 text-sm mb-1 shadow-none bg-secondary text-light rounded" href="tel:{{ $order->user->phone_number }}"> Telefon: {{ $order->user->phone_number }}</a>
-                          
-                          
+                              <a class="mt-2 px-2 text-sm mb-1 shadow-none bg-secondary text-light rounded" href="tel:{{ $order->user->phone_number }}"> Telefon: {{ $order->user->phone_number }}</a>                          
                               <span class="text-xs">{{ $order->created_at }}</span>
                           </div>
                           <div class="ms-auto text-end">
