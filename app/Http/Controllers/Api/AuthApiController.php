@@ -25,32 +25,37 @@ class AuthApiController extends Controller
     
         $user = User::where('phone_number', $phone_number)->first();
         $pass = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        if($user->role_id == 5){
+            $url = 'https://send.smsxabar.uz/broker-api/send';
+            $username = 'ekosfera';
+            $password = '!1(|iV?2Cg%7';
 
-        $url = 'https://send.smsxabar.uz/broker-api/send';
-        $username = 'ekosfera';
-        $password = '!1(|iV?2Cg%7';
-
-        $payload = [
-            "messages" => [
-                [
-                    "recipient" => $phone_number,
-                    "message-id" => "abc000000001",
-                    "sms" => [
-                        "originator" => "3700",
-                        "content" => [
-                            "text" => "Ro‘yxatsan o‘tish kodi: $pass"
+            $payload = [
+                "messages" => [
+                    [
+                        "recipient" => $phone_number,
+                        "message-id" => "abc000000001",
+                        "sms" => [
+                            "originator" => "3700",
+                            "content" => [
+                                "text" => "Ro‘yxatsan o‘tish kodi: $pass"
+                            ]
                         ]
                     ]
                 ]
-            ]
-        ];
-        Http::withBasicAuth($username, $password)->post($url, $payload);
-
+            ];
+            Http::withBasicAuth($username, $password)->post($url, $payload);
+        }
         if ($user && $user->area_id !== null) {
-            $user->update([
-                'password' => Hash::make($pass)
-            ]);
-            return response()->json(['message' => 'login' , 'phone' =>  $phone_number]);
+            if($user->role_id == 5){
+                $user->update([
+                    'password' => Hash::make($pass)
+                ]);
+                return response()->json(['message' => 'login' , 'phone' =>  $phone_number]);
+            }else{
+                return response()->json(['message' => 'Mamuriyatdagi hodimlarga mumkin emas']);
+            }
+
         } elseif ($user) {
             $user->update([
                 'password' => Hash::make($pass)
