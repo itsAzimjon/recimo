@@ -47,14 +47,10 @@ class AuthApiController extends Controller
             Http::withBasicAuth($username, $password)->post($url, $payload);
         }
         if ($user && $user->area_id !== null) {
-            if($user->role_id == 5){
-                $user->update([
-                    'password' => Hash::make($pass)
-                ]);
-                return response()->json(['message' => 'login' , 'phone' =>  $phone_number]);
-            }else{
-                return response()->json(['message' => 'Mamuriyatdagi hodimlarga mumkin emas']);
-            }
+            $user->update([
+                'password' => Hash::make($pass)
+            ]);
+            return response()->json(['message' => 'login' , 'phone' =>  $phone_number]);
 
         } elseif ($user) {
             $user->update([

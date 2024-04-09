@@ -125,6 +125,7 @@ $user = auth()->user();
             </div>
             <div>
                 @can('agent')
+                <div class="row">
                     <div class="modal fade" id="createPproduct" tabindex="-1" aria-labelledby="createPproductLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
