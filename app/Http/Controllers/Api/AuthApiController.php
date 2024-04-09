@@ -25,27 +25,26 @@ class AuthApiController extends Controller
     
         $user = User::where('phone_number', $phone_number)->first();
         $pass = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
-        if($user->role_id == 5){
-            $url = 'https://send.smsxabar.uz/broker-api/send';
-            $username = 'ekosfera';
-            $password = '!1(|iV?2Cg%7';
+        $url = 'https://send.smsxabar.uz/broker-api/send';
+        $username = 'ekosfera';
+        $password = '!1(|iV?2Cg%7';
 
-            $payload = [
-                "messages" => [
-                    [
-                        "recipient" => $phone_number,
-                        "message-id" => "abc000000001",
-                        "sms" => [
-                            "originator" => "3700",
-                            "content" => [
-                                "text" => "Ro‘yxatsan o‘tish kodi: $pass"
-                            ]
+        $payload = [
+            "messages" => [
+                [
+                    "recipient" => $phone_number,
+                    "message-id" => "abc000000001",
+                    "sms" => [
+                        "originator" => "3700",
+                        "content" => [
+                            "text" => "Ro‘yxatsan o‘tish kodi: $pass"
                         ]
                     ]
                 ]
-            ];
-            Http::withBasicAuth($username, $password)->post($url, $payload);
-        }
+            ]
+        ];
+        Http::withBasicAuth($username, $password)->post($url, $payload);
+        
         if ($user && $user->area_id !== null) {
             $user->update([
                 'password' => Hash::make($pass)
@@ -79,14 +78,15 @@ class AuthApiController extends Controller
     
         /** @var \App\Models\User $user **/
         $user = Auth::user();
-
-        $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60 * 24 * 365);
-    
-        return response([
-            'message' => 'Muvaffaqiyatli ro‘yxatdan o‘tdingiz',
-            'token' => $token
-        ])->withCookie($cookie);
+        if($user->role_id == 5){
+            $token = $user->createToken('token')->plainTextToken;
+            $cookie = cookie('jwt', $token, 60 * 24 * 365);
+        
+            return response([
+                'message' => 'Muvaffaqiyatli ro‘yxatdan o‘tdingiz',
+                'token' => $token
+            ])->withCookie($cookie);
+        }
     }
     
     public function register(Request $request)
