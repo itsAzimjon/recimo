@@ -95,14 +95,18 @@
                                   <form id="attachOrderForm" action="{{ route('order.attach', ['id' => $order->id]) }}" method="POST">
                                       @method('PUT')
                                       @csrf
-                                      <input type="hidden" value="1" name="status">
-                                      <select id="attachmentSelect" name="attachment" class="form-select form-select-sm mt-3" aria-label="Default select example">
+                                      <div class="input-group mb-3">
+                                      <select id="attachmentSelect" required name="attachment" class="form-select form-select-sm mt-3" aria-label="Default select example">
                                           <option disabled selected>Agent biriktirish</option>
                                           @foreach ($users->where('role_id', 3) as $agent)
                                               <option value="{{ $agent->id }}">{{ $agent->name }}</option>                                  
                                           @endforeach
                                       </select>
                                       <input type="hidden" name="status" value="1">
+                                      <div class="input-group-text  btn-secondary p-0" style="height: 40px;margin-top: 16px;">
+                                          <input class="form-check-input mt-0  btn-secondary text-white p-0 px-4" type="submit" value=" ↪" aria-label="Checkbox for following text input">
+                                      </div>
+                                    </div>
                                   </form>
                               @endcan
                             @else
@@ -121,11 +125,5 @@
       </div>
     </div>
   </div>
- <script>
-  //order name attachment
-  document.getElementById('attachmentSelect').addEventListener('change', function() {
-      document.getElementById('attachOrderForm').submit();
-  });
-</script>
 @endsection
 
