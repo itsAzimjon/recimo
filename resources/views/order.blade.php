@@ -103,8 +103,8 @@
                                           @endforeach
                                       </select>
                                       <input type="hidden" name="status" value="1">
-                                      <div class="input-group-text  btn-secondary p-0" style="height: 40px;margin-top: 16px;">
-                                          <input class="form-check-input mt-0  btn-secondary text-white p-0 px-4" type="submit" value=" ↪" aria-label="Checkbox for following text input">
+                                      <div class="input-group-text  btn-success p-0" style="height: 40px;margin-top: 16px;">
+                                          <input class="form-check-input mt-0  btn-success text-white" style="padding: 0px 30px 0px 10px;" type="submit" value=" ↪" aria-label="Checkbox for following text input">
                                       </div>
                                     </div>
                                   </form>
