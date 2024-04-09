@@ -39,8 +39,8 @@
                                 Tizimdan chiqishni istaysizmi!
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Yopish</button>
-                                <a href="{{ url('/logout')}}" class="btn btn-sm btn-primary">Tasdiqlash</a>
+                                <button type="button" class="btn btn-sm  btn-outline-secondary" data-bs-dismiss="modal">Yopish</button>
+                                <a href="{{ url('/logout')}}" class="btn btn-sm btn-outline-danger">Tasdiqlash</a>
                             </div>
                         </div>
                     </div>
