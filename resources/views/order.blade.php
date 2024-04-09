@@ -61,8 +61,8 @@
                           </div>
                           <div class="ms-auto text-end">
                            
-                            @can('admin')
-                              @if ($order->status == 3)   
+                            @if ($order->status == 3)   
+                              @can('admin')
                                 <div class="btn-group  mt-3">
                                   <form method="POST" action="{{ route('order.reject', $order) }}">
                                     @csrf
@@ -75,8 +75,16 @@
                                     <button type="submit" class="btn btn-sm p-2 btn-success shadow-none m-1">Qabul qilish</button>
                                   </form>
                                 </div>  
-                              @endif
-                            @endcan
+                              @endcan
+                              @can('agent')
+                                <form method="POST" action="{{ route('order.acceptAgent', $order) }}">
+                                  @csrf
+                                  <input type="hidden" name="edited" value="{{ auth()->user()->name }}">
+                                  <input type="hidden" name="attachment" value="{{  auth()->user()->id }}">
+                                  <button type="submit" class="btn btn-sm p-2 btn-success shadow-none m-1">Qabul qilish</button>
+                                </form>
+                              @endcan
+                            @endif
                              @if ( $order->status)
                                 @if ( $order->status == 1)
                                   <p class="btn btn-sm btn-link text-light px-5 mt-3 mb-0 shadow-none bg-info">Qabul qilindi</p>
@@ -84,7 +92,7 @@
                                   <p class="btn btn-sm btn-link text-light px-5 mt-3 mb-0 shadow-none bg-danger">Rad etildi</p>
                                 @endif
                             @endif   
-                            @cannot('admin')
+                            @can('factory')
                                 @if ( $order->status == 3)
                                 <p class="btn btn-sm btn-link text-dark px-5 mt-3 mb-0 shadow-none bg-warning">Ko'rib chiqilmoqda</p>
                               @endif

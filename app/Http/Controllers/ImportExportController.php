@@ -103,16 +103,22 @@ class ImportExportController extends Controller
             'sale' => 'required|array',
         ]);
 
+        if($request->money_switch == 1){
+            $card = 1;           
+        }
+
         foreach ($request->type_id as $key => $typeId) {
             $token = Str::random(60);
             Base::create([
                 'user_id' => $request->user_id,
                 'type_id' => $typeId,
+                'card'  => $card ?? null,
                 'client_id' => $request->client_id,
                 'import' => $request->sale[$key], 
                 'status' => $request->status ?? 3,
                 'token' => $token,
             ]);
+            
         }
         
         return back()->with('success', 'Amaliyot muvofaqiatli yakunlandi');

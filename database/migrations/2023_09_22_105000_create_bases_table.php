@@ -22,6 +22,7 @@ class CreateBasesTable extends Migration
             $table->string('export')->nullable();
             $table->string('token')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('card')->nullable();
             $table->timestamps();
         });
     }

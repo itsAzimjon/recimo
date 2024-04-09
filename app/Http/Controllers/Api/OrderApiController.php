@@ -8,6 +8,7 @@ use App\Http\Resources\ExportResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Base;
 use App\Models\Order;
+use App\Models\Transaction;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,29 +92,58 @@ class OrderApiController extends Controller
     public function update(Request $request, $id)
     {
         $base = Base::find($id);
+        $type_id = $base->type_id;
+        $type = Type::find($type_id);
+        $product_price = $base->import * $type->price;
+
         $status = $request->input('status');
-        if($status == 1 && $base->status == 3){
-            $type_id = $base->type_id;
-            $type = Type::find($type_id);
-            $product_price = $base->import * $type->price;
-    
-            $user = $base->user;
-            $per = $user->commission;
-            $cost = $product_price * $per;
-            $sum = $user->wallet->money - $cost;
-            $user->wallet->update(['money' => $sum]);
+
+        if($base->user->wallet->money >= $product_price || $base->card == null){
+            if($status == 1 && $base->status == 3){
+                
+                $user = $base->user;
+                $per = $user->commission;
+                $cost = $product_price * $per;
+                $sum = $user->wallet->money - $cost;
+                $user->wallet->update(['money' => $sum]);
+                
+                $admin = User::find(1);
+                $commis = $admin->wallet->money + $cost;
+                $admin->wallet->update(['money' => $commis]);
+                
+                if($base->card === 1){
+                    $client = User::find($base->client_id);
+                    $client_money = $client->wallet->money + $product_price;
+                    $client->wallet->update(['money' => $client_money]);
+                    
+                    $agent_money = $user->wallet->money - $product_price;
+                    $user->wallet->update(['money' => $agent_money]);
+
+                    Transaction::create([
+                        'user_id' => $user->id,
+                        'client_id' => $client->id,
+                        'amount' => $product_price,
+                        'method' => 1,
+                        'in_out' => 2
+                    ]);
+
+                    Transaction::create([
+                        'user_id' => $client->id,
+                        'client_id' => $user->id,
+                        'amount' => $product_price,
+                        'method' => 1,
+                        'in_out' => 1
+                    ]);
+                }
+            }
             
-            $admin = User::find(1);
-            $commis = $admin->wallet->money + $cost;
-            $admin->wallet->update(['money' => $commis]);
+            $base->update([
+                'status' => $status,
+            ]);
+            
+            return response()->json(['message' => "Buyurtma tasdiqlandi"], 200);
+        }else{
+            return response()->json(['message' => "Agent hisobida mablag‘ yetarli emas"], 405);
         }
-        
-        $base->update([
-            'status' => $status,
-        ]);
-
-        return response()->json(['message' => "Buyurtma tasdiqlandi"], 200);
     }
-
-
 }

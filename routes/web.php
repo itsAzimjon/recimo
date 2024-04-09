@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'checkUserRole:3'], function () {
 		Route::post('/createNewProduct', [ImportExportController::class, 'createNewProduct'])->name('createNewProduct');
 		Route::post('/importFromClient', [ImportExportController::class, 'importFromClient'])->name('importFromClient');
+		Route::post('/order/{order}/acceptAgent', [OrderController::class, 'acceptAgent'])->name('order.acceptAgent');
 	});
 });
 

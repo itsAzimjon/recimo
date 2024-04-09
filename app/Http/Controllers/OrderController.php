@@ -58,12 +58,22 @@ class OrderController extends Controller
     public function accept(Order $order, Request $request)
     {
         $order->update(['status' => '1', 'edited_by' => $request->edited,]);
-        return redirect()->back()->with('success', 'Order accepted successfully.');
+        return redirect()->back()->with('success', 'Buyurtma qabul qilindi');
+    }
+
+    public function acceptAgent(Order $order, Request $request)
+    {
+        $order->update([
+            'status' => '1',
+            'edited_by' => $request->edited,
+            'attachment' => $request->attachment
+        ]);
+        return redirect()->back()->with('success', 'Buyurtma qabul qilindi');
     }
 
     public function reject(Order $order, Request $request)
     {
         $order->update(['status' => '2', 'edited_by' => $request->edited,]);
-        return redirect()->back()->with('success', 'Order rejected successfully.');
+        return redirect()->back()->with('success', 'Buyurtma rad etildi');
     }
 }

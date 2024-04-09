@@ -113,9 +113,6 @@ $user = auth()->user();
                         <a href="#" data-bs-toggle="modal" data-bs-target="#importFromClient" class="btn bg-gradient-primary btn-sm col-5" type="button">+&nbsp;
                             Qabul
                         </a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#createPproduct" class="btn bg-gradient-secondary btn-sm col-5 mx-2" type="button">+&nbsp;
-                            Terim
-                        </a>
                     @endcan
                 @else
                     <a href="{{ route('wallet.show', ['id'=>$user->id])}}" class="btn bg-gradient-secondary btn-sm col-10 mx-2">

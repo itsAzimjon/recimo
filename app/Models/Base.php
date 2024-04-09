@@ -15,6 +15,7 @@ class Base extends Model
         'type_id',
         'import',
         'export',
+        'card',
         'token',
         'status'
     ];

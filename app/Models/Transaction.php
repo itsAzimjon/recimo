@@ -13,6 +13,7 @@ class Transaction extends Model
         'user_id',
         'client_id',
         'amount',
+        'in_out',
         'method',
     ];
 
