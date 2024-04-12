@@ -18,7 +18,7 @@ class ImportExportController extends Controller
     public function import($id)
     {
         $user = User::findOrFail($id);
-        $bases = Base::latest()->paginate(80);
+        $bases = Base::latest()->paginate(60);
         return view('import')->with(['bases' => $bases, 'areas' => Area::all(), 'user' => $user, 'users' => User::all(), 'types' => Type::all() ]);
     }
 

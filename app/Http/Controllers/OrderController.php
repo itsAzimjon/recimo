@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::latest()->get();
+        if($request->status == 3){
+            $orders = Order::where('status',3)->latest()->paginate(50);
+        }elseif($request->status == 2){
+            $orders = Order::where('status',2)->latest()->paginate(50);
+        }elseif($request->status == 1){
+            $orders = Order::where('status',1)->latest()->paginate(50);
+        }else{
+            $orders = Order::latest()->paginate(50);
+        }
+
         return view('order')->with(['orders' => $orders, 'areas' => Area::all(), 'users' => User::all(),  'categories' => Category::all() ]);
     }
 

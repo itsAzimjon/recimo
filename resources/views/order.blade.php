@@ -6,12 +6,33 @@
       <div class="col-12">
         <div class="card">
           <div class="card mb-4">
-            <div class="row d-flex justify-content-between">
-                <div class="col">
+            <div class="row ">
+              <div class="col">
+                <div class=""> <!-- Add d-flex class here -->
                     <div class="card-header pb-0">
                         <h6>Buyurtmalar</h6>
                     </div>
+                    <div class="d-flex p-2 pb-0 mx-2 ">
+                        <form action="{{ route('orders') }}" method="POST">
+                          @csrf
+                          <input type="hidden" name="status" value="3">
+                          <button type="submit" class="btn rounded p-1 px-3 btn-light mx-2"><i style="font-size: 16px" class="fas fa-question-circle -warning"></i></button>
+                        </form>
+                        <form action="{{ route('orders') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="status" value="1">
+                            <button type="submit" class="btn p-1 px-3 btn-light"><i style="font-size: 16px" class="fas fa-check -success"></i></button>
+                        </form>
+                        <form action="{{ route('orders') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="status" value="2">
+                            <button type="submit" class="btn p-1 px-3 btn-light mx-2"><i style="font-size: 16px" class="fas fa-times -danger"></i></button>
+                        </form>
+                        <a href="{{ route('order')}}" type="submit" class="btn p-1 px-3 btn-light "><i style="font-size: 16px" class="fas fa-list-alt -secondary"></i></a>
+                    </div>
                 </div>
+            </div>
+            
                 {{-- @can('factory')
                   <div class="col-sm-12 col-md-5 col-xl-4 m-4">
                       <div>
@@ -37,6 +58,7 @@
                       </div>
                   </div>
                   @endcan --}}
+                  
                   <div class="card-body pt-4 p-3">
                     <ul class="list-group">
                       @foreach ($orders as $order)
@@ -127,6 +149,7 @@
                       @endforeach
                     </ul>
                   </div>
+                  @include('layouts.pagination', ['paginator' => $orders])
               </div>
             </div>
         </div>

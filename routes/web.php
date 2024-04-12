@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/order', [OrderController::class, 'index'])->name('order');
 	Route::post('/order/store', [OrderController::class, 'store'])->name('order-store');
 	Route::put('/order/attach/{id}', [OrderController::class, 'order_attach'])->name('order.attach');
+	Route::post('/orders', [OrderController::class, 'index'])->name('orders');
 	Route::get('/user-profile/{id}/edit', [InfoUserController::class, 'edit'])->name('user-profile.edit')->middleware('can:only-auth,id');
 	Route::get('/users/search', [UserController::class, 'search'])->name('search.results');
 

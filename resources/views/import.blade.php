@@ -171,9 +171,10 @@
                                         @endif
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> 
                         </div>
                     </div>
+                    @include('layouts.pagination', ['paginator' => $bases])
                 </div>
             </div>
         </div>
