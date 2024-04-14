@@ -171,6 +171,32 @@ $user = auth()->user();
         </div>
     </div>
     <div class="row">
+        <a href="{{ route('wallet.show', ['id' =>  auth()->user()->id]) }}">
+            <div class="col-xl-12  mb-4">
+                <div class="card bg-transparent shadow-xl">
+                    <div class="overflow-hidden position-relative border-radius-xl"
+                        style="background-image: url('../assets/img/curved-images/curved14.jpg');">
+                        <span class="mask bg-gradient-dark"></span>
+                        <div class="card-body position-relative z-index-1 p-3">
+                            <h5 class="text-white mt-4  pb-2">{{ substr(chunk_split($user->wallet->wallet_number, 4, ' '), 0, -1) }}</h5>
+                            <div class="d-flex">
+                                <div class="d-flex">
+                                    <div class="me-4">
+                                        <p class="text-white text-sm opacity-8 mb-0">{{ $user->name }}</p>
+                                        <h5 class="mb-0 metallic-text">{{ number_format($user->wallet->money) }} so‘m</h5>
+                                    </div>
+                                </div>
+                                <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
+                                    <i class="far fa-credit-card text-light h3 mx-3"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div> 
+    <div class="row">
         <div class="@can('admin') col-xl-3 @endcan  col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
@@ -466,7 +492,6 @@ $user = auth()->user();
             <div class="card z-index-2">
                 <div class="card-header pb-0">
                     <h6 class="m-0">Sotuv</h6>
-                    <small class="m-0">Balans: {{ number_format($user->wallet->money) }} so‘m</small>
                 </div>
                 <div class="card-body p-3">
                     <div class="chart">

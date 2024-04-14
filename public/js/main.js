@@ -202,3 +202,8 @@ document.getElementById('sendOtpForm').submit();
     });
     confirmationModal.show();
 }
+
+// import value switch
+function setMoneySwitchValue(value) {
+    document.getElementById("money_switch_value").value = value; // Set the value of the hidden input field
+}

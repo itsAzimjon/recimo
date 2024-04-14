@@ -25,7 +25,7 @@ class OrderController extends Controller
             $orders = Order::latest()->paginate(50);
         }
 
-        return view('order')->with(['orders' => $orders, 'areas' => Area::all(), 'users' => User::all(),  'categories' => Category::all() ]);
+        return view('order')->with(['orders' => $orders, 'areas' => Area::all(), 'users' => User::all(), 'types' => Type::all(), 'categories' => Category::all() ]);
     }
 
     public function store(Request $request)

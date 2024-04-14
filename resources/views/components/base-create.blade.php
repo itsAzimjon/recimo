@@ -40,10 +40,6 @@
                     </div>
                     <small class="text-muted">Narxi: <span class="calculated-price">0.00</span></div>
                 </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="money_switch" value="1" role="switch" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Hamyon orqali to'lov</label>
-                </div>
             </div>
             <div class="row mb-3 justify-content-between">
                 <div class="col-md-6">
@@ -53,9 +49,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-md bg-gradient-dark w-100">Saqlash</button>
+                        <input type="hidden" name="money_switch" id="money_switch_value" value="1"> 
+                        <button type="submit" class="btn btn-md btn-success  w-100" onclick="setMoneySwitchValue(1)">Hamyondan to‘lash</button>
+                        <div class="mx-1"></div>
+                        <button type="submit" class="btn btn-md bg-gradient-dark w-100" onclick="setMoneySwitchValue(0)">Naqt to‘lash</button>
                     </div>
                 </div>
             </div>
